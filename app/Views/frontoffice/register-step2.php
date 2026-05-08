@@ -21,7 +21,7 @@
                 </div>
 
                 <h1>Profil Santé</h1>
-                <p>Ces données nous permettent de calculer vos besoins caloriques.</p>
+                <p>Ces données nous permettent de calculer vos besoins.</p>
             </header>
 
             <form action="dashboard.html" method="POST">
