@@ -24,38 +24,42 @@
                 <p>Commencez par vos informations de base.</p>
             </header>
 
-            <!-- On pointe vers le fichier de l'étape 2 -->
-            <form action="register-step2.html" method="GET">
+            <form action="/register/1" method="POST">
                 <div class="input-row">
                     <div class="input-group">
                         <label for="nom">Nom</label>
-                        <input type="text" id="nom" name="nom" placeholder="Nom" required>
+                        <input type="text" id="nom" name="nom" placeholder="Nom" value="<?php echo old('nom') ?? ''; ?>">
+                        <span class="error"><?php echo session()->getFlashData('errors')['nom'] ?? ''; ?></span>
                     </div>
                     <div class="input-group">
                         <label for="prenom">Prénom</label>
-                        <input type="text" id="prenom" name="prenom" placeholder="Prénom" required>
+                        <input type="text" id="prenom" name="prenom" placeholder="Prénom" value="<?php echo old('prenom') ?? ''; ?>">
+                        <span class="error"><?php echo session()->getFlashData('errors')['prenom'] ?? ''; ?></span>
                     </div>
                 </div>
 
                 <div class="input-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="nom@exemple.com" required>
+                    <input type="email" id="email" name="email" placeholder="nom@exemple.com" value="<?php echo old('email') ?? ''; ?>">
+                    <span class="error"><?php echo session()->getFlashData('errors')['email'] ?? ''; ?></span>
                 </div>
 
                 <div class="input-group">
                     <label>Genre</label>
                     <div class="gender-selector">
-                        <input type="radio" name="genre" id="homme" value="H" checked>
+                        <input type="radio" name="genre" id="homme" value="H" <?php echo old('genre') == 'H' || !(old('genre')) ? 'checked' : ''; ?>>
                         <label for="homme" class="gender-btn">Homme</label>
                         
-                        <input type="radio" name="genre" id="femme" value="F">
+                        <input type="radio" name="genre" id="femme" value="F" <?php echo old('genre') && (old('genre')) == 'F' ? 'checked' : ''; ?>>
                         <label for="femme" class="gender-btn">Femme</label>
                     </div>
+                    <span class="error"><?php echo session()->getFlashData('errors')['genre'] ?? ''; ?></span>
                 </div>
 
                 <div class="input-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    <input type="password" id="password" name="password_hash" placeholder="••••••••" value="<?php echo old('password_hash') ?? ''; ?>">
+                    <span class="error"><?php echo session()->getFlashData('errors')['password_hash'] ?? ''; ?></span>
                 </div>
 
                 <button type="submit" class="btn-login">Suivant : Profil Santé</button>

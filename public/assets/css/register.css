@@ -40,7 +40,7 @@ body {
 .login-container {
     position: relative;
     width: 100%;
-    max-width: 440px;
+    max-width: 800px;
     padding: 24px;
     z-index: 1;
 }
@@ -277,6 +277,11 @@ input:focus, select:focus {
     bottom: -60px;
     right: -60px;
     opacity: 0.15;
+}
+
+.error {
+    font-size: 0.8rem;
+    color: red;
 }
 
 /* --- RESPONSIVE --- */
