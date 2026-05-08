@@ -1,0 +1,1 @@
+Create a layout for a website. Here is the details: a header: link to profile, link to home, username, wallet information with a + button to add cash in it; then a whitespace for the main content. The context is like the website "Comme j'aime", something to improve health and physical condition. Only use html and css.
