@@ -9,6 +9,7 @@
 
         public function registerForm($step) {
             return view("frontoffice/register-step$step");
+            
         }
     }
 
