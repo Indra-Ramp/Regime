@@ -20,7 +20,8 @@
                 return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
                 // var_dump($this->validator->getErrors());
             }
-
+            session()->set('temp_data', $data);
+            return redirect()->to('/register/2');
         }
     }
 

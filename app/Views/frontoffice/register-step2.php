@@ -36,7 +36,7 @@
                 </div>
 
                 <button type="submit" class="btn-login">Terminer l'inscription</button>
-                <!-- <a href="register-step1.html" class="btn-back-link">Retour à l'étape précédente</a> -->
+                <a href="/register/1" class="btn-back-link">Retour à l'étape précédente</a>
             </form>
         </div>
         

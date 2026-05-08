@@ -86,7 +86,7 @@
                         <div class="password-wrapper">
                             <input type="password" id="password" name="password_hash" 
                                 class="<?= isset($errors['password_hash']) ? 'input-error' : '' ?>" 
-                                placeholder="••••••••">
+                                placeholder="••••••••" value=<?php echo esc($inputs['password_hash']) ?>>
                             
                             <label class="show-password-trigger">
                                 <input type="checkbox" id="checkbox">
