@@ -132,7 +132,7 @@ body {
 
 .input-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 16px;
 }
 
@@ -276,13 +276,118 @@ input:focus, select:focus {
     background: var(--accent);
     bottom: -60px;
     right: -60px;
-    opacity: 0.15;
+    opacity: 0.2;
 }
 
 .error {
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: red;
 }
+
+/* --- STYLE DES FIELDSET & LEGEND --- */
+
+fieldset.form-section {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-bottom: 24px;
+    position: relative;
+    background: rgba(255, 255, 255, 0.4);
+}
+
+legend {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    background: var(--surface);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    margin-left: 10px; /* Aligné légèrement vers l'intérieur */
+}
+
+/* --- GESTION DES ERREURS --- */
+
+.error-text {
+    display: block;
+    color: #e63946;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.input-error {
+    border-color: #f28b6d !important; /* On utilise la couleur accent pour l'erreur */
+    background-color: #fffaf9 !important;
+}
+
+.show-password {
+    display: grid;
+    grid-template-columns: 0.05fr 1fr;
+    margin-top: 1%;
+}
+
+/* --- AJUSTEMENT DES LIGNES --- */
+
+.input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Conteneur pour aligner l'input et le bouton */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style du déclencheur "Afficher" */
+.show-password-trigger {
+    align-self: flex-end;
+    margin-top: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Cache le checkbox natif */
+.show-password-trigger input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    accent-color: var(--primary); /* Utilise ton vert sauge */
+}
+
+/* Style du texte "Afficher" */
+.trigger-text {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+.show-password-trigger:hover .trigger-text {
+    color: var(--accent); /* Change en corail au survol */
+}
+/* 
+Optionnel : Si tu veux mettre le bouton "Afficher" DIRECTEMENT dans l'input  */
+/*
+.password-wrapper input {
+    padding-right: 70px;
+}
+.show-password-trigger {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    margin-top: 0;
+}
+*/
+
 
 /* --- RESPONSIVE --- */
 
