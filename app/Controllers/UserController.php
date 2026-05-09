@@ -72,7 +72,23 @@
         }
 
         public function login() {
-            
+            $input = $this->request->getPost();
+            $user = new UserModel();
+            $errors = [];
+            if(!$this->validate($user->getValidationRules()['login'])) {
+                return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            }
+            $emailMatch = $user->where('email', $input['email'])->first();
+            if($emailMatch === NULL) {
+                $errors['email'] = 'Aucun email correspondant';
+                return redirect()->back()->withInput()->with('errors', $errors);
+            }
+            if($input['password_hash'] !== $emailMatch['password_hash']) {
+                $errors['password_hash'] = 'Mot de passe incorrect';
+                return redirect()->back()->withInput()->with('errors', $errors);
+            }
+            session()->set('user', $emailMatch);
+            return redirect()->to('/');
         }
 
         public function logout() {
