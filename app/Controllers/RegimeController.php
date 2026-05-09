@@ -1,9 +1,11 @@
 <?php
-    namespace App\Controller;
+    namespace App\Controllers;
     use App\Models\RegimeModel;
 
     class RegimeController extends BaseController {
-        
+        public function index(){
+            return view('admin/regimeForm');
+        }
         public function insertRegime(){
         $regimeModel = new RegimeModel();
   
@@ -30,12 +32,12 @@
 
         $data['regime'] = $regimeModel->findAll();
 
-        return redirect()->to('regime/list');
+        return redirect()->to('admin/list');
         }
 
         public function findByid($id){
-            $regimeModel = new regimeModel();
-            $data['id_regime'] = $regimeModel->find($id);
+            $regimeModel = new RegimeModel();
+            $data['id'] = $regimeModel->find($id);
              return view('regime/detail', $data);
         }
 
