@@ -30,7 +30,7 @@
 
         public function registerStep2() {
             $dataUser = session()->get('temp_data');
-            $dataUser['role'] = 1;
+            $dataUser['id_role'] = 1;
             $dataPost = $this->request->getPost();
             $user = new UserModel();
             $monnaie = new MonnaieModel();
@@ -40,10 +40,11 @@
             try {
                 $user->setValidationRules($user->getValidationRules()['register'])->save($dataUser);
                 $id = $user->getInsertID();
+                $saved = $user->find($id);
                 $dataPost['id_user'] = $id;
                 if(!$suivi->save($dataPost)) {
                     $user->db->transRollback();
-                    return redirect()->to('/register/2')->withInput()->with('errors', $suivi->getErrors());
+                    return redirect()->to('/register/2')->withInput()->with('errors', $suivi->errors());
                 }
                 $dataMonnaie = [
                     'id_user' => $id,
@@ -57,16 +58,26 @@
                 $profil->save($dataProfil);
                 if($user->db->transStatus() === false) {
                     $user->db->transRollback();
-                    return redirect()->to('/register/2')->withInput()->with('server_error', 'Erreur transaction');
+                    return redirect()->to('/register/2')->withInput()->with('server_error', 'Erreur lors de la creation de votre compte');
                 }
                 session()->remove('temp_data');
+                session()->set('user', $saved);
                 $user->db->transCommit();
                 return redirect()->to('/');
             } catch (\Throwable $th) {
                 $user->db->transRollback();
                 echo $th->getMessage();
-                return redirect()->to('/register/2')->withInput()->with('server_error', $th->getMessage());
+                return redirect()->to('/register/2')->withInput()->with('server_error', 'Erreur lors de la creation de votre compte');
             }
+        }
+
+        public function login() {
+            
+        }
+
+        public function logout() {
+            session()->remove('user');
+            return redirect()->to('/');
         }
     }
 

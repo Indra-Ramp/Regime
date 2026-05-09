@@ -1,3 +1,9 @@
+<?php
+
+    $errors = session()->getFlashData('errors') ?? [];
+    $server_error = session()->getFlashData('server_error') ?? '';
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -11,6 +17,11 @@
 
     <div class="login-container">
         <div class="login-card">
+            <?php if(!empty($server_error)) : ?>
+                <div class="alert">
+                    <?= $server_error ?>
+                </div>
+            <?php endif; ?>
             <header class="login-header">
                 <div class="logo">Vital<span>Vibe</span></div>
                 
@@ -25,15 +36,20 @@
             </header>
 
             <form action="/register/2" method="POST">
-                <?= session()->getFlashData('server_error') ?? '' ?>
                 <div class="input-group">
                     <label for="taille">Taille (cm)</label>
-                    <input type="number" id="taille" name="taille" placeholder="Ex: 175" required>
+                    <input type="number" id="taille" name="taille" placeholder="Ex: 175" value="<?php echo old('taille') ?? '' ?>">
+                    <?php if(isset($errors['taille'])): ?>
+                        <span class="error-text"><?= $errors['taille'] ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <div class="input-group">
                     <label for="poids">Poids actuel (kg)</label>
-                    <input type="number" id="poids" name="poids" placeholder="Ex: 70" required>
+                    <input type="number" id="poids" name="poids" placeholder="Ex: 70" value="<?php echo old('poids') ?? '' ?>">
+                    <?php if(isset($errors['poids'])): ?>
+                        <span class="error-text"><?= $errors['poids'] ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <button type="submit" class="btn-login">Terminer l'inscription</button>
