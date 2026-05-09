@@ -4,7 +4,9 @@
     use CodeIgniter\Model;
 
     class ProfilModel extends Model {
-
+        protected $table = 'profil';
+        protected $primaryKey = 'id';
+        protected $allowedFields = ['id_user', 'telephone', 'date_naissance'];
     }
 
 ?>
