@@ -24,7 +24,8 @@
                 <p>Ces données nous permettent de calculer vos besoins.</p>
             </header>
 
-            <form action="dashboard.html" method="POST">
+            <form action="/register/2" method="POST">
+                <?= session()->getFlashData('server_error') ?? '' ?>
                 <div class="input-group">
                     <label for="taille">Taille (cm)</label>
                     <input type="number" id="taille" name="taille" placeholder="Ex: 175" required>
