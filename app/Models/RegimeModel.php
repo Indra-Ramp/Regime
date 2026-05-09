@@ -5,7 +5,7 @@ use CodeIgniter\Model;
 
 class RegimeModel extends Model {
         protected $table = 'regime';
-        protected $primarykey = "id_regime";
+        protected $primarykey = "id";
         protected $allowedFields = [
             'perc_viande',
             'perc_poisson',
