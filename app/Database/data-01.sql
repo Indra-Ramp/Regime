@@ -8,12 +8,12 @@ INSERT INTO role(role) VALUES
 -- =========================
 -- INSERTION DES UTILISATEURS
 -- =========================
-INSERT INTO user(nom, prenom, email, genre, password_hash, id_role) VALUES
-('Rakoto', 'Jean', 'jean@gmail.com', 'Homme', '1234', 2),
-('Rasoanaivo', 'Sarah', 'sarah@gmail.com', 'Femme', '1234', 2),
-('Randria', 'Lucas', 'lucas@gmail.com', 'Homme', '1234', 2),
-('Andry', 'Emma', 'emma@gmail.com', 'Femme', '1234', 2),
-('Rabe', 'Kevin', 'kevin@gmail.com', 'Homme', '1234', 1);
+INSERT INTO user(nom, prenom, email, genre, password_hash, id_role, created_at) VALUES
+('Rakoto', 'Jean', 'jean@gmail.com', 'Homme', '1234', 2, '2026-01-10 08:30:00'),
+('Rasoanaivo', 'Sarah', 'sarah@gmail.com', 'Femme', '1234', 2, '2026-01-15 10:15:00'),
+('Randria', 'Lucas', 'lucas@gmail.com', 'Homme', '1234', 2, '2026-02-02 14:20:00'),
+('Andry', 'Emma', 'emma@gmail.com', 'Femme', '1234', 2, '2026-02-18 09:45:00'),
+('Rabe', 'Kevin', 'kevin@gmail.com', 'Homme', '1234', 1, '2026-03-01 16:10:00');
 
 -- =========================
 -- INSERTION DES PROFILS

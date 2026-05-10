@@ -14,6 +14,7 @@ CREATE TABLE user(
     genre VARCHAR(10),
     password_hash VARCHAR(100),
     id_role INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (id_role) REFERENCES role(id)
 );

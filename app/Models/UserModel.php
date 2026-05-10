@@ -31,4 +31,20 @@
         ];
     }
 
+    public function userCountEvolution(){
+        return $this->select('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(id) as count')
+                    ->groupBy('month')
+                    ->orderBy('month', 'ASC')
+                    ->get()
+                    ->getResultArray();
+    }
+
+    public function getRoleUser($idUser){
+        return $this->db->table('user as u')
+                    ->select('r.label as role')
+                    ->join('role as r', 'r.id = u.id_role')
+                    ->where('u.id', $idUser)
+                    ->get()
+                    ->getRow();
+    }
 ?>
