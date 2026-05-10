@@ -8,16 +8,10 @@
 <body>
   <header class="header">
     <div class="logo">Vital<span>Vibe</span></div>
-
     <nav class="nav">
-      <a href="#" class="nav-link active">Home</a>
-     <?php if (!session()->get('id_user')) { ?>
-    <a href="<?= base_url('profil/form') ?>" class="nav-link">Profile</a>
-<?php } else { ?>
-    <a href="<?= base_url('profil/profil') ?>" class="nav-link">Profile</a>
-<?php } ?>
+      <a href="/" class="nav-link active">Home</a>
+      <a href="<?= base_url('profil/show') ?>" class="nav-link">Profile</a>
     </nav>
-
     <div class="user-zone">
       <div class="username">
         <div class="avatar">SM</div>
@@ -25,32 +19,15 @@
       </div>
     </div>
   </header>
+
 <h2>Profil</h2>
 <table border="1">
-    <tr>
-        <th>Nom</th>
-        <td><?= $profil['nom'] ?? '' ?></td>
-    </tr>
-    <tr>
-        <th>Prénom</th>
-        <td><?= $profil['prenom'] ?? '' ?></td>
-    </tr>
-    <tr>
-        <th>Email</th>
-        <td><?= $profil['email'] ?? '' ?></td>
-    </tr>
-    <tr>
-        <th>Genre</th>
-        <td><?= $profil['genre'] ?? '' ?></td>
-    </tr>
-    <tr>
-        <th>Téléphone</th>
-        <td><?= $profil['telephone'] ?? '' ?></td>
-    </tr>
-    <tr>
-        <th>Date naissance</th>
-        <td><?= $profil['date_naissance'] ?? '' ?></td>
-    </tr>
+    <tr><th>Nom</th><td><?= $profil['nom'] ?? '' ?></td></tr>
+    <tr><th>Prénom</th><td><?= $profil['prenom'] ?? '' ?></td></tr>
+    <tr><th>Email</th><td><?= $profil['email'] ?? '' ?></td></tr>
+    <tr><th>Genre</th><td><?= $profil['genre'] ?? '' ?></td></tr>
+    <tr><th>Téléphone</th><td><?= $profil['telephone'] ?? '' ?></td></tr>
+    <tr><th>Date naissance</th><td><?= $profil['date_naissance'] ?? '' ?></td></tr>
 </table>
 
 <hr>
@@ -62,7 +39,6 @@
         <th>Date</th>
         <th>Valeur</th>
     </tr>
-
     <?php if (!empty($objectifs)): ?>
         <?php foreach ($objectifs as $obj): ?>
             <tr>
@@ -72,11 +48,26 @@
             </tr>
         <?php endforeach; ?>
     <?php else: ?>
-        <tr>
-            <td colspan="3">Aucun objectif</td>
-        </tr>
+        <tr><td colspan="3">Aucun objectif</td></tr>
     <?php endif; ?>
+</table>
 
+<hr>
+
+<h2>Suivi santé</h2>
+<table border="1">
+    <tr>
+        <th>Poids (kg)</th>
+        <th>Taille (cm)</th>
+        <th>Date</th>
+    </tr>
+    
+            <tr>
+                <td><?= $profil['poids'] ?? '' ?></td>
+                <td><?= $profil['taille']  ?? ''?></td>
+                <td><?= $profil['date_suivi']  ?? ''?></td>
+            </tr>
+     
 </table>
 
 <hr>

@@ -28,7 +28,9 @@ public function store()
 {
     $objectifModel = new ObjectifUserModel();
 
-    $idUser = session()->get('user_id');
+   $user   = session()->get('user');
+    $idUser = $user['id'] ?? null;
+    
 
     if (!$idUser) {
         return $this->response->setJSON([

@@ -21,11 +21,8 @@
 
     <nav class="nav">
       <a href="#" class="nav-link active">Home</a>
-     <?php if (!session()->get('id_user')) { ?>
-    <a href="<?= base_url('profil/') ?>" class="nav-link">Profile</a>
-<?php } else { ?>
-    <a href="<?= base_url('profil/profil') ?>" class="nav-link">Profile</a>
-<?php } ?>
+    <a href="<?= base_url('profil/show') ?>" class="nav-link">Profile</a>
+
     </nav>
 
     <div class="user-zone">

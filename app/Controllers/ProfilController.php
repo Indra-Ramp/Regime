@@ -69,14 +69,14 @@ public function insertProfil()
 
 public function profile()
 {
-    $userId = session()->get('user_id');
+    $user   = session()->get('user');
+    $userId = (int)($user['id'] ?? 0);
 
-    $profilModel = new ProfilModel();
-    $objectifUserModel= new ObjectifUserModel();
-
+    $profilModel      = new ProfilModel();
+    $objectifUserModel = new ObjectifUserModel();
 
     $data = [
-        'profil' => $profilModel->getProfil($userId),
+        'profil'    => $profilModel->getProfil($userId),
         'objectifs' => $objectifUserModel->getObjectifs($userId)
     ];
 
