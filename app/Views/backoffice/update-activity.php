@@ -12,7 +12,7 @@
     
     <h2>Modifier votre activité</h2>
 
-    <form action="/admin/updated-activity" method="post" class="activity-form">
+    <form action="/admin/activites/updated-activity" method="post" class="activity-form">
       <input type="hidden" name="id" id="id" value="<?= session('activity')['id'] ?? '' ?>">
       <div class="form-group">
         <label for="label">Nom de l'activité</label>

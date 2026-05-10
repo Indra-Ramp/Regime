@@ -17,7 +17,7 @@ $routes->group('admin', function($routes) {
     $routes->post('create-activity', 'ActiviteController::createActivity');
     $routes->get('activities', 'ActiviteController::index');
     $routes->get('activites/update/(:num)', 'ActiviteController::UpdateForm/$1');
-    $routes->get('activites/updated-activity/(:num)', 'ActiviteController::updateActivity/$1');
+    $routes->post('activites/updated-activity', 'ActiviteController::updateActivity');
     $routes->post('activites/delete/(:num)', 'ActiviteController::deleteActivity/$1');
     $routes->get('regime', 'RegimeController::index');
     $routes->post('regime/save', 'RegimeController::insertRegime');
