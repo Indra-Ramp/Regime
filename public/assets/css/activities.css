@@ -1,0 +1,178 @@
+/* Palette de couleurs VitalVibe */
+:root {
+    --vit-bg: #f8faf9;
+    --vit-surface: #ffffff;
+    --vit-primary: #2d5a4c;       /* Vert profond (Boutons principaux, Titres) */
+    --vit-primary-light: #e9f2ef; /* Vert très clair pour les hovers */
+    --vit-accent: #f28b6d;        /* Corail doux */
+    --vit-text-main: #1a2e28;     /* Texte sombre */
+    --vit-text-muted: #6b857d;    /* Texte secondaire gris-vert */
+    --vit-border: #e2ede9;        /* Lignes de séparation douces */
+    --vit-radius-lg: 28px;        /* Coins arrondis de la carte (comme la page de connexion) */
+    --vit-radius-sm: 8px;         /* Coins arrondis des boutons */
+    
+    /* Ombre douce identique à l'effet de la carte de connexion */
+    --vit-shadow-card: 0 10px 40px rgba(45, 90, 76, 0.06);
+}
+
+/* Reset de base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: var(--vit-bg);
+    color: var(--vit-text-main);
+    padding: 60px 20px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* LE CONTENEUR DU TABLEAU (Style "Card") */
+.table-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: var(--vit-surface);
+    border: 1px solid var(--vit-border);
+    border-radius: var(--vit-radius-lg);
+    box-shadow: var(--vit-shadow-card);
+    overflow: hidden; /* Empêche le tableau de dépasser des coins arrondis */
+}
+
+/* EN-TÊTE DE LA CARTE */
+.table-header {
+    padding: 35px 40px 25px 40px;
+    border-bottom: 1px solid var(--vit-border);
+}
+
+.table-header h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--vit-primary);
+    margin-bottom: 8px;
+}
+
+.table-header p {
+    font-size: 14px;
+    color: var(--vit-text-muted);
+    font-weight: 500;
+}
+
+/* RESPONSIVE TABLE (Scroll horizontal sur mobile) */
+.responsive-table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* TABLEAU */
+table {
+    width: 100%;
+    border-collapse: collapse; /* On fusionne les bordures brutes */
+    text-align: left;
+    font-size: 14px;
+}
+
+/* Supprime la bordure brute du HTML "border=1" pour la rendre moderne */
+table[border="1"] {
+    border: none;
+}
+
+/* EN-TÊTE DES COLONNES (Th) */
+th {
+    background-color: #fafcfb;
+    color: var(--vit-text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    padding: 18px 40px;
+    border-bottom: 1px solid var(--vit-border);
+}
+
+/* CELLULES DE DONNÉES (Td) */
+td {
+    padding: 20px 40px;
+    border-bottom: 1px solid var(--vit-border);
+    color: var(--vit-text-main);
+    vertical-align: middle;
+}
+
+/* Effet au survol d'une ligne */
+tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:hover {
+    background-color: #f4faf8; /* Léger vert au survol */
+}
+
+tbody tr:last-child td {
+    border-bottom: none; /* Supprime la dernière bordure du bas */
+}
+
+/* Style spécifique pour la colonne d'ID */
+td:first-child {
+    font-weight: 700;
+    color: var(--vit-text-muted);
+}
+
+/* Style pour le nom de l'activité */
+td:nth-child(2) {
+    font-weight: 600;
+    color: var(--vit-primary);
+}
+
+/* BOUTONS D'ACTIONS (Modifier & Supprimer) */
+
+/* Le lien "Modifier" */
+td a {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--vit-primary);
+    background-color: var(--vit-primary-light);
+    padding: 8px 16px;
+    border-radius: var(--vit-radius-sm);
+    margin-right: 8px;
+    transition: all 0.2s ease;
+}
+
+td a:hover {
+    background-color: var(--vit-primary);
+    color: #ffffff;
+}
+
+/* Le bouton "Supprimer" */
+td form button {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #e63946; /* Rouge discret d'alerte */
+    background-color: #fff5f5;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--vit-radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+td form button:hover {
+    background-color: #e63946;
+    color: #ffffff;
+}
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 768px) {
+    body {
+        padding: 30px 10px;
+    }
+    .table-header {
+        padding: 25px 20px;
+    }
+    th, td {
+        padding: 15px 20px;
+    }
+}

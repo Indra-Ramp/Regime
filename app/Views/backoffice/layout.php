@@ -22,9 +22,9 @@
     <nav class="nav">
       <a href="#" class="nav-link active">Home</a>
      <?php if (!session()->get('id_user')) { ?>
-    <a href="<?= base_url('profil/') ?>" class="nav-link">Profile</a>
+    <a href="<?= base_url('admin/dashboard') ?>" class="nav-link">Dashboard</a>
 <?php } else { ?>
-    <a href="<?= base_url('profil/profil') ?>" class="nav-link">Profile</a>
+    <a href="<?= base_url('admin/dashboard') ?>" class="nav-link">Dashboard</a>
 <?php } ?>
     </nav>
 
@@ -44,56 +44,20 @@
               </div>
               
               <div class="dropdown-content">
-                  <a href="<?= base_url('/profile') ?>" class="dropdown-item">Mon Profil</a>
                   <hr class="dropdown-divider">
                   <a href="<?= base_url('/logout') ?>" class="dropdown-item logout-link">
                       Se déconnecter
                   </a>
               </div>
           </div>
-
-        <?php else: ?>
-            <div class="auth-guest">
-                <a href="<?= base_url('/login') ?>" class="btn-guest login">Connexion</a>
-                <a href="<?= base_url('/register/1') ?>" class="btn-guest register">S'inscrire</a>
-            </div>
-        <?php endif; ?>
     </div>
   </header>
 
   <main class="main">
-    <div class="bento-grid">
-    <!-- Carte 1 : Nutrition -->
-        <div class="bento-item">
-            <div class="bento-icon">🥗</div>
-            <h3>Plan Nutritionnel</h3>
-            <p>Vos repas personnalisés n'attendent que vous.</p>
-            <span class="status-tag">À définir</span>
-        </div>
-
-        <!-- Carte 2 : Activité -->
-        <div class="bento-item highlight">
-            <div class="bento-icon">🔥</div>
-            <h3>Calories Brûlées</h3>
-            <div class="progress-placeholder"></div>
-            <p>Connectez-vous pour suivre vos efforts.</p>
-        </div>
-
-        <!-- Carte 3 : Poids -->
-        <div class="bento-item">
-            <div class="bento-icon">⚖️</div>
-            <h3>Suivi du Poids</h3>
-            <p>Visualisez votre courbe de progression.</p>
-        </div>
+    <div class="main-placeholder">
+      <p style="font-weight: 600; font-size: 18px; color: var(--primary); margin-bottom: 8px;">Prêt pour vos objectifs ?</p>
+      <p style="z-index: 1;">Le contenu de votre programme s'affichera ici.</p>
     </div>
-
-    <!-- CTA flottant pour les Guests -->
-    <?php if (!session()->has('user')): ?>
-        <div class="floating-cta">
-            <p>Envie de remplir ces statistiques ?</p>
-            <a href="<?= base_url('/register/1') ?>" class="btn-main">Créer mon profil gratuit</a>
-        </div>
-    <?php endif; ?>
   </main>
 
 </body>

@@ -8,13 +8,13 @@ document.addEventListener('DOMContentLoaded', function(){
     const userChart = new Chart(ctx,{
         type : 'line',
         data : {
-            labels : labels,
+            labels : evoLabels,
             datasets : [{
-                label : 'Nombre d\'utilisateurs',
-                data : values,
-                backgroundColor : 'rgba(54, 162, 235, 0.2)',
-                borderColor : 'rgba(54, 162, 235, 1)',
-                tension : 0.4,
+                label: 'Utilisateurs inscrits',
+                data : evoValues,
+                backgroundColor : 'rgba(45, 90, 76, 0.06)',
+                borderColor : 'rgba(45, 90, 76, 1)',
+                tension : 0.35,
                 borderWidth : 1
             }]
         },
@@ -24,17 +24,30 @@ document.addEventListener('DOMContentLoaded', function(){
                 y :{
                     beginAtZero : true
                 }
+            },
+            plugins:{
+                legend : {
+                    position :'right',
+                    labels : {
+                        color: '#1a2e28',
+                        font: { family: 'Inter',
+                            size: 13,
+                            weight: '500'
+                        },
+                        padding: 15
+                    }
+                }
             }
-        }
+        },
     });
 
-    const canvas = document.getElementsById('typeAbonnementChart');
+    const canvas = document.getElementById('typeAbonnementChart');
     const Typectx = canvas.getContext('2d');
 
     const labels = JSON.parse(canvas.getAttribute('data-labels'));
     const values = JSON.parse(canvas.getAttribute('data-values'));
 
-    const typeAbonnementChart = new Chart(ctx,{
+    const typeAbonnementChart = new Chart(Typectx,{
         type : 'doughnut',
         data : {
             labels : labels,
@@ -42,25 +55,38 @@ document.addEventListener('DOMContentLoaded', function(){
                 label : 'Types d\'abonnement',
                 data : values,
                 backgroundColor : [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)', 
+                    'rgb(242, 139, 109)',
+                    'rgba(45, 90, 76, 1)', 
                 ],
                 borderColor : [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)', 
+                    'rgb(242, 139, 109)',
+                    'rgba(45, 90, 76, 1)', 
                 ],
                 borderWidth : 1
             }]
         },
         options : {
             responsive : true,
+            maintainAspectRatio: false,
             plugins : {
                 legend : {
-                    position : 'top'
+                    // Change ici : 'right' pour la droite, 'left' pour la gauche
+                    position : 'right', 
+                    align: 'center', // Aligne les éléments au centre verticalement
+                    labels : {
+                        color: '#1a2e28',
+                        font: {
+                            family: 'Inter',
+                            size: 13,
+                            weight: '500'
+                        },
+                        padding: 15 // Espace entre les éléments de la légende
+                    }
                 }
             }
-        }
+        },
+        cutout : '70%',
 
-    })
+    });
 
 })

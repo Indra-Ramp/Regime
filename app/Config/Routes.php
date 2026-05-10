@@ -2,12 +2,23 @@
 
 use App\Controllers\RegimeController;
 use App\Controllers\UserController;
+use App\Controllers\AdminController;
+use App\Controllers\ActiviteController;
 use CodeIgniter\Router\RouteCollection;
 
 /**
  * @var RouteCollection $routes
  */
 $routes->group('admin', function($routes) {
+    $routes->get('/', 'AdminController::loginForm');
+    $routes->post('login', 'AdminController::login');
+    $routes->post('dashboard', 'AdminController::index');
+    $routes->get('create-form', 'ActiviteController::CreationForm');
+    $routes->post('create-activity', 'ActiviteController::createActivity');
+    $routes->get('activities', 'ActiviteController::index');
+    $routes->get('activites/update/(:num)', 'ActiviteController::UpdateForm/$1');
+    $routes->get('activites/updated-activity/(:num)', 'ActiviteController::updateActivity/$1');
+    $routes->post('activites/delete/(:num)', 'ActiviteController::deleteActivity/$1');
     $routes->get('regime', 'RegimeController::index');
     $routes->post('regime/save', 'RegimeController::insertRegime');
 });
@@ -30,11 +41,9 @@ $routes->get('/objectif/delete/(:num)', 'ObjectifUserController::delete/$1');
 
 $routes->group('profil', function($routes){
 
-    $routes->get('/', 'ProfilController::index');
-
-    $routes->post('create', 'ProfilController::insertProfil');
-
+    $routes->get('/', 'ProfilController::index');  
+    $routes->post('step1', 'ProfilController::insertProfil');  
+    $routes->post('step2', 'ObjectifUserController::store');  
     $routes->get('show', 'ProfilController::profile');
 
 });
-$routes->post('/admin/dashboard', 'AdminController::index');
