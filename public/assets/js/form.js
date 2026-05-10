@@ -204,11 +204,11 @@ btnSubmit.addEventListener('click', async (e) => {
             fd.append('telephone', inpTel.value.trim());
             fd.append('date_naissance', inpDateNaiss.value);
 
-            const response = await fetch(`${BASE_URL}/profil/step1`, {
-                method: 'POST',
-                body: fd
-            });
-
+ const response = await fetch(`${BASE_URL}/profil/step1`, {
+    method: 'POST',
+    body: fd,
+    credentials: 'include'
+});
             // DEBUG
             console.log(response);
 
@@ -277,11 +277,11 @@ btnSubmit.addEventListener('click', async (e) => {
             fd.append('date_objectif', inpDateObj.value);
             fd.append('valeur', inpValeur.value.trim());
 
-            const response = await fetch(`${BASE_URL}/profil/step2`, {
-                method: 'POST',
-                body: fd
-            });
-
+          const response = await fetch(`${BASE_URL}/profil/step2`, {
+    method: 'POST',
+    body: fd,
+    credentials: 'include'
+});
             console.log(response);
 
             if (!response.ok) {

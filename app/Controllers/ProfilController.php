@@ -16,21 +16,37 @@ class ProfilController extends BaseController{
 }     
 public function insertProfil()
 {
-   
+    $user   = session()->get('user');
+    $userId = $user['id'] ?? null;
+
+    if (!$userId) {
+        return $this->response->setJSON([
+            'success' => false,
+            'message' => 'Utilisateur non connecté'
+        ]);
+    }
+
     $profilModel = new ProfilModel();
 
     $data = [
-        'id_user' => session()->get('user_id'),
-        'telephone' => $this->request->getPost('telephone'),
+        'id_user'        => $userId,
+        'telephone'      => $this->request->getPost('telephone'),
         'date_naissance' => $this->request->getPost('date_naissance')
     ];
 
-    $profilModel->insert($data);
+    // ← Affiche la requête SQL générée AVANT l'insert
+    $builder = $profilModel->builder();
+    $builder->set($data);
+    log_message('debug', 'SQL INSERT: ' . $builder->getCompiledInsert(false));
 
-      return $this->response->setJSON([
-        'success' => true
-    ]);
-   
+    if (!$profilModel->insert($data)) {
+        return $this->response->setJSON([
+            'success' => false,
+            'message' => $profilModel->errors()
+        ]);
+    }
+
+    return $this->response->setJSON(['success' => true]);
 }
 
 public function profile()
