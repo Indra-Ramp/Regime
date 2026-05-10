@@ -176,6 +176,7 @@ btnStep1.addEventListener('click', async () => {
     clearMsg();
     if (!validateStep1()) return;
 
+<<<<<<< HEAD
     setLoading(btnStep1, true);
     try {
         const data = await postStep({
@@ -184,6 +185,81 @@ btnStep1.addEventListener('click', async () => {
             telephone:      inpTel.value.trim(),
             date_naissance: inpDateNaiss.value,
         });
+=======
+    e.preventDefault();
+
+    if (btnSubmit.disabled) return;
+
+    clearAllErrors();
+
+    // =========================================
+    // STEP 1
+    // =========================================
+    if (currentStep === 1) {
+
+        if (!validateStep1()) return;
+
+        setLoading(true);
+
+        try {
+
+            const fd = new FormData();
+
+            fd.append('telephone', inpTel.value.trim());
+            fd.append('date_naissance', inpDateNaiss.value);
+
+ const response = await fetch(`${BASE_URL}/profil/step1`, {
+    method: 'POST',
+    body: fd,
+    credentials: 'include'
+});
+            // DEBUG
+            console.log(response);
+
+            // Vérifier si réponse OK
+            if (!response.ok) {
+                throw new Error('Erreur HTTP : ' + response.status);
+            }
+
+            // récupérer texte brut
+            const text = await response.text();
+
+            console.log(text);
+
+            // convertir en JSON
+            const result = JSON.parse(text);
+
+            if (result.success) {
+
+                showMsg('success', 'Profil enregistré avec succès.');
+
+                setTimeout(() => {
+                    clearAllErrors();
+                    showStep(2);
+                }, 500);
+
+            } else {
+
+                showMsg(
+                    'error',
+                    result.message || 'Erreur lors de l’enregistrement.'
+                );
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMsg(
+                'error',
+                error.message
+            );
+
+        } finally {
+
+            setLoading(false);
+>>>>>>> 21f5176 (Merge pull request #10 from Indra-Ramp/leo1)
 
         if (data.success) {
             idUserGlobal = inpIdUser.value.trim();
@@ -202,6 +278,75 @@ btnStep1.addEventListener('click', async () => {
     } finally {
         setLoading(btnStep1, false);
     }
+<<<<<<< HEAD
+=======
+
+    // =========================================
+    // STEP 2
+    // =========================================
+    else if (currentStep === 2) {
+
+        if (!validateStep2()) return;
+
+        setLoading(true);
+
+        try {
+
+            const fd = new FormData();
+
+            fd.append('id_objectif', getSelectedObjectif());
+            fd.append('date_objectif', inpDateObj.value);
+            fd.append('valeur', inpValeur.value.trim());
+
+          const response = await fetch(`${BASE_URL}/profil/step2`, {
+    method: 'POST',
+    body: fd,
+    credentials: 'include'
+});
+            console.log(response);
+
+            if (!response.ok) {
+                throw new Error('Erreur HTTP : ' + response.status);
+            }
+
+            const text = await response.text();
+
+            console.log(text);
+
+            const result = JSON.parse(text);
+
+            if (result.success) {
+
+                form.style.display = 'none';
+                successPanel.classList.add('active');
+
+            } else {
+
+                showMsg(
+                    'error',
+                    result.message || 'Erreur lors de l’enregistrement.'
+                );
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMsg(
+                'error',
+                error.message
+            );
+
+        } finally {
+
+            setLoading(false);
+
+        }
+
+    }
+
+>>>>>>> 21f5176 (Merge pull request #10 from Indra-Ramp/leo1)
 });
 
 btnBack.addEventListener('click', () => {
