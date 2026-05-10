@@ -1,7 +1,6 @@
 <?php
 
 use App\Controllers\RegimeController;
-use App\Controllers\RegimeController;
 use App\Controllers\UserController;
 use CodeIgniter\Router\RouteCollection;
 
@@ -19,9 +18,7 @@ $routes->get('/logout', 'UserController::logout');
 $routes->get('/register/(:num)', 'UserController::registerForm/$1');
 $routes->post('/register/1', 'UserController::registerStep1');
 $routes->post('/register/2', 'UserController::registerStep2');
-<<<<<<< HEAD
 $routes->get('/admin/dashboard', 'AdminController::index');
-=======
 $routes->get('/objectif', 'ObjectifController::index');
 $routes->get('/objectif/create', 'ObjectifUserController::create');
 $routes->post('/objectif/store', 'ObjectifUserController::store');

@@ -6,7 +6,6 @@
     use App\Models\ProfilModel;
     use App\Models\MonnaieModel;
 
-    use App\Models\ProfilModel;
     class UserController extends BaseController {
         public function loginForm() {
             return view('frontoffice/login');
