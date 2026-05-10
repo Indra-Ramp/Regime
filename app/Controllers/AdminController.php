@@ -37,36 +37,6 @@
             return view('backoffice/dashboard', $data);
         }
 
-        public function createActivity(){
-            $activite = new ActiviteModel();
-            $activite->save([
-                'label' =>$this->request->getPost('label'),
-                'variation_poids' => $this->request->getPost('variation_poids'),
-                'frequence' => $this->request->getPost('frequence')
-            ]);
-
-            return redirect()->back()->with('success', 'Activité créée avec succès');
-        }
-
-        public function deleteActivity(){
-            $activite = new ActiviteModel();
-            $activity = $activite->find($this->request->getPost('id'));
-            $activite->deleteById($activity['id']);
-            return redirect()->back()->with('success', 'Activité supprimée avec succès');
-        }
-
-        public function updateActivity(){
-            $activite = new ActiviteModel();
-            $activity = $activite->find($this->request->getPost('id'));
-            $activite->update($activity['id'], [
-                'label' =>$this->request->getPost('label'),
-                'variation_poids' => $this->request->getPost('variation_poids'),
-                'frequence' => $this->request->getPost('frequence')
-            ]);
-
-            return redirect()->back()->with('success', 'Activité mise à jour avec succès');
-        }
-
         public function ValidationCode(){
             $code = $this->request->getPost('code');
         }

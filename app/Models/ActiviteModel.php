@@ -4,10 +4,10 @@
     use CodeIgniter\Model;
 
     class ActiviteModel extends Model {
-        protected $table = 'activite';
-        protected $allowedFields = ['id', 'nom'];
+        protected $table = 'activite_sportive';
+        protected $primaryKey = "id";
+        protected $allowedFields = ['label', 'variation_poids', 'frequence'];
 
-        
     }
 
 ?>
