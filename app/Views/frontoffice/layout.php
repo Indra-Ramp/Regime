@@ -14,7 +14,11 @@
 
     <nav class="nav">
       <a href="#" class="nav-link active">Home</a>
-      <a href="#" class="nav-link">Profile</a>
+     <?php if (!session()->get('id_user')) { ?>
+    <a href="<?= base_url('profil/form') ?>" class="nav-link">Profile</a>
+<?php } else { ?>
+    <a href="<?= base_url('profil/profil') ?>" class="nav-link">Profile</a>
+<?php } ?>
     </nav>
 
     <div class="user-zone">

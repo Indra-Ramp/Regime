@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription - Étape 2 | VitaForme</title>
+    <title>Inscription - Étape 2 | VitalVibe</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/register.css">
 </head>
@@ -12,7 +12,7 @@
     <div class="login-container">
         <div class="login-card">
             <header class="login-header">
-                <div class="logo">Vita<span>Forme</span></div>
+                <div class="logo">Vital<span>Vibe</span></div>
                 
                 <div class="step-indicator">
                     <span class="step">1</span>
@@ -21,7 +21,7 @@
                 </div>
 
                 <h1>Profil Santé</h1>
-                <p>Ces données nous permettent de calculer vos besoins caloriques.</p>
+                <p>Ces données nous permettent de calculer vos besoins.</p>
             </header>
 
             <form action="dashboard.html" method="POST">
@@ -36,7 +36,7 @@
                 </div>
 
                 <button type="submit" class="btn-login">Terminer l'inscription</button>
-                <!-- <a href="register-step1.html" class="btn-back-link">Retour à l'étape précédente</a> -->
+                <a href="/register/1" class="btn-back-link">Retour à l'étape précédente</a>
             </form>
         </div>
         
