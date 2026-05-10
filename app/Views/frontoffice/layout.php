@@ -62,10 +62,38 @@
   </header>
 
   <main class="main">
-    <div class="main-placeholder">
-      <p style="font-weight: 600; font-size: 18px; color: var(--primary); margin-bottom: 8px;">Prêt pour vos objectifs ?</p>
-      <p style="z-index: 1;">Le contenu de votre programme s'affichera ici.</p>
+    <div class="bento-grid">
+    <!-- Carte 1 : Nutrition -->
+        <div class="bento-item">
+            <div class="bento-icon">🥗</div>
+            <h3>Plan Nutritionnel</h3>
+            <p>Vos repas personnalisés n'attendent que vous.</p>
+            <span class="status-tag">À définir</span>
+        </div>
+
+        <!-- Carte 2 : Activité -->
+        <div class="bento-item highlight">
+            <div class="bento-icon">🔥</div>
+            <h3>Calories Brûlées</h3>
+            <div class="progress-placeholder"></div>
+            <p>Connectez-vous pour suivre vos efforts.</p>
+        </div>
+
+        <!-- Carte 3 : Poids -->
+        <div class="bento-item">
+            <div class="bento-icon">⚖️</div>
+            <h3>Suivi du Poids</h3>
+            <p>Visualisez votre courbe de progression.</p>
+        </div>
     </div>
+
+    <!-- CTA flottant pour les Guests -->
+    <?php if (!session()->has('user')): ?>
+        <div class="floating-cta">
+            <p>Envie de remplir ces statistiques ?</p>
+            <a href="<?= base_url('/register/1') ?>" class="btn-main">Créer mon profil gratuit</a>
+        </div>
+    <?php endif; ?>
   </main>
 
 </body>
