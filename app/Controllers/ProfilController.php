@@ -30,6 +30,7 @@ public function profile()
     $userId = session()->get('user_id');
 
     $model = new ProfilModel();
+    $omodel = new ObjectifUserModel();
 
     $data = [
         'profil' => $model->getProfil($userId),

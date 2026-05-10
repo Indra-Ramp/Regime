@@ -37,4 +37,4 @@ $routes->group('profil', function($routes){
     $routes->get('show', 'ProfilController::profile');
 
 });
-$router->post('/admin/dashboard', 'AdminController::index');
+$routes->post('/admin/dashboard', 'AdminController::index');
