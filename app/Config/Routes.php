@@ -30,7 +30,7 @@ $routes->group('admin', function($routes) {
 
     $routes->get('codes', 'AdminController::getInvalidCodes');
     $routes->get('codes/validate/(:num)', 'AdminController::ValidCode/$1');
-    $routes->get('codes/refuse/(:num)', 'AdminController::RefusedCode/$1');
+    $routes->post('codes/refuse/(:num)', 'AdminController::RefusedCode/$1');
 });
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'UserController::loginForm');
