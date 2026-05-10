@@ -1,0 +1,139 @@
+/* Palette et Polices inspirées de VitalVibe */
+:root {
+  --vit-bg-body: #F7FAF9; /* Gris-vert très clair de fond */
+  --vit-bg-surface: #FFFFFF; /* Blanc pour la carte */
+  --vit-primary: #345D52; /* Vert profond institutionnel */
+  --vit-primary-light: #E9F2F0; /* Pour les hovers légers */
+  --vit-accent: #E1765F; /* Corail doux (logo) */
+  --vit-text-main: #1D2A26; /* Noir-vert pour les textes */
+  --vit-text-muted: #7E9790; /* Gris-vert pour les labels */
+  --vit-border: #E8F0EE; /* Gris-vert pour les bordures d'input */
+  --vit-radius-card: 28px; /* Grand arrondi externe */
+  --vit-radius-input: 10px; /* Arrondi des champs */
+  
+  /* Ombre large et douce identique à la page de connexion */
+  --vit-shadow-card: 0 10px 40px rgba(45, 90, 76, 0.06); 
+  
+  /* Pour l'halo de focus */
+  --vit-focus-shadow: 0 0 0 4px rgba(45, 90, 76, 0.12);
+}
+
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+/* Polices Inter (importez-les si besoin) */
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background-color: var(--vit-bg-body);
+  color: var(--vit-text-main);
+  padding: 60px 20px;
+}
+
+/* LA CARTE CENTRALE (Le "Card" avec coins arrondis) */
+.creation-card {
+  background-color: var(--vit-bg-surface);
+  max-width: 460px; /* Largeur similaire à la page de connexion */
+  margin: 0 auto;
+  padding: 40px; /* Grand padding interne pour aérer */
+  border-radius: var(--vit-radius-card);
+  box-shadow: var(--vit-shadow-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centre le contenu horizontalement */
+}
+
+/* TITRE PRINCIPAL */
+.creation-card h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--vit-primary);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Structure du formulaire */
+.activity-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Espace vertical constant entre les champs */
+}
+
+/* Un groupe d'input complet */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+/* LABELS */
+.form-group label {
+  font-size: 13px;
+  font-weight: 700; /* Gras comme "Adresse email" */
+  color: var(--vit-text-muted); /* Couleur grise */
+  text-transform: capitalize; /* "variation poids" -> "Variation Poids" */
+}
+
+/* INPUTS (Champs de saisie) */
+.form-group input {
+  width: 100%;
+  padding: 13px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--vit-text-main);
+  background-color: var(--vit-bg-body); /* Fond gris-vert très clair */
+  border: 1.5px solid var(--vit-border); /* Bordure fine grise */
+  border-radius: var(--vit-radius-input);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* Placeholders (textes gris) */
+.form-group input::placeholder {
+  color: #B2C3BD; 
+  font-weight: 500;
+}
+
+/* EFFET AU CLIC (Focus) */
+.form-group input:focus {
+  border-color: var(--vit-primary);
+  background-color: var(--vit-bg-surface);
+  box-shadow: var(--vit-focus-shadow);
+}
+
+/* BOUTON S'INSCRIRE (Bouton principal Vert) */
+.btn-submit {
+  width: 100%;
+  margin-top: 15px;
+  background: var(--vit-primary);
+  color: white;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(45, 90, 76, 0.1);
+  transition: all 0.2s ease;
+}
+
+.btn-submit:hover {
+  background: #2D5146; /* Légèrement plus foncé au hover */
+  transform: translateY(-1.5px);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+/* RESPONSIVE MOBILE */
+@media (max-width: 480px) {
+  .creation-card {
+    padding: 25px;
+    border-radius: 20px;
+  }
+}

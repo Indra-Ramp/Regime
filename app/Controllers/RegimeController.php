@@ -22,7 +22,7 @@
 
      $regimeModel->insert($data);
 
-    return redirect()->to('/regime');
+    return redirect()->to('/admin/regime');
     
 
     }
