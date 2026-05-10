@@ -41,10 +41,9 @@ $routes->get('/objectif/delete/(:num)', 'ObjectifUserController::delete/$1');
 
 $routes->group('profil', function($routes){
 
-    $routes->get('/', 'ProfilController::index');
-
-    $routes->post('create', 'ProfilController::insertProfil');
-
+    $routes->get('/', 'ProfilController::index');  
+    $routes->post('step1', 'ProfilController::insertProfil');  
+    $routes->post('step2', 'ObjectifUserController::store');  
     $routes->get('show', 'ProfilController::profile');
 
 });
