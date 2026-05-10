@@ -26,31 +26,33 @@ class ObjectifUserController extends BaseController
     }
 public function store()
 {
-    $objectifModel = new ObjectifUserModel();
+    $user   = session()->get('user');
+    $userId = (int)($user['id'] ?? 0);
 
-    $idUser = session()->get('user_id');
-
-    if (!$idUser) {
+    if (!$userId) {
         return $this->response->setJSON([
             'success' => false,
             'message' => 'Utilisateur non connecté'
         ]);
     }
 
+    $objectifModel = new ObjectifUserModel();
+
     $data = [
-        'id_user' => $idUser,
-        'id_objectif' => $this->request->getPost('id_objectif'),
+        'id_user'       => $userId,
+        'id_objectif'   => $this->request->getPost('id_objectif'),
         'date_objectif' => $this->request->getPost('date_objectif'),
-        'valeur' => $this->request->getPost('valeur')
+        'valeur'        => $this->request->getPost('valeur')
     ];
 
     if (!$objectifModel->insert($data)) {
         return $this->response->setJSON([
             'success' => false,
-            'errors' => $objectifModel->errors()
+            'errors'  => $objectifModel->errors()
         ]);
     }
 
+    // ← corrige ici
     return $this->response->setJSON([
         'success' => true
     ]);
