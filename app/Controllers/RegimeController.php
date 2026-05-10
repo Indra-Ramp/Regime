@@ -64,17 +64,17 @@ class RegimeController extends BaseController {
         return view('backoffice/create-regime');
     }
 
-}
-        'perc_volaille' => $this->request->getPost('perc_volaille'),
-        'variation_poids' => $this->request->getPost('variation_poids'),
-        'duree' => $this->request->getPost('duree'),
-        'price' => $this->request->getPost('price')
-    ];
+// }
+//         'perc_volaille' => $this->request->getPost('perc_volaille'),
+//         'variation_poids' => $this->request->getPost('variation_poids'),
+//         'duree' => $this->request->getPost('duree'),
+//         'price' => $this->request->getPost('price')
+//     ];
 
-    $regimeModel->update($id, $data);
+//     $regimeModel->update($id, $data);
 
-    return redirect()->to('/regime');
-}
+//     return redirect()->to('/regime');
+// }
 
 public function deleteRegime($id)
 {
