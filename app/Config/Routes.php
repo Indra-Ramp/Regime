@@ -14,8 +14,11 @@ $routes->group('admin', function($routes) {
 });
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'UserController::loginForm');
+$routes->post('/login', 'UserController::login');
+$routes->get('/logout', 'UserController::logout');
 $routes->get('/register/(:num)', 'UserController::registerForm/$1');
 $routes->post('/register/1', 'UserController::registerStep1');
+$routes->post('/register/2', 'UserController::registerStep2');
 <<<<<<< HEAD
 $routes->get('/admin/dashboard', 'AdminController::index');
 =======

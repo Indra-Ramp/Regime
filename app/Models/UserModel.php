@@ -5,6 +5,8 @@
 
     class UserModel extends Model {
         protected $table = 'user';
+        protected $primaryKey = 'id';
+        protected $allowedFields = ['nom', 'prenom', 'email', 'genre', 'password_hash', 'id_role'];
         protected $validationRules = [
             'register' => [
                 'nom' => [
@@ -22,6 +24,16 @@
                 'genre' => [
                     'label' => 'genre',
                     'rules' => 'required'
+                ],
+                'password_hash' => [
+                    'label' => 'mot de passe',
+                    'rules' => 'required|min_length[4]'
+                ]
+            ],
+            'login' => [
+                'email' => [
+                    'label' => 'email',
+                    'rules' => 'required|valid_email'
                 ],
                 'password_hash' => [
                     'label' => 'mot de passe',
