@@ -22,3 +22,13 @@ $routes->post('/objectif/store', 'ObjectifUserController::store');
 $routes->post('/objectif/update/(:num)', 'ObjectifUserController::update/$1');
 
 $routes->get('/objectif/delete/(:num)', 'ObjectifUserController::delete/$1');
+
+$routes->group('profil', function($routes){
+
+    $routes->get('/', 'ProfilController::index');
+
+    $routes->post('create', 'ProfilController::insertProfil');
+
+    $routes->get('show', 'ProfilController::profile');
+
+});

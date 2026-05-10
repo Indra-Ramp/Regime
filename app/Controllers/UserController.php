@@ -2,7 +2,7 @@
 
     namespace App\Controllers;
     use App\Models\UserModel;
-
+    use App\Models\ProfilModel;
     class UserController extends BaseController {
         public function loginForm() {
             return view('frontoffice/login');
@@ -24,6 +24,8 @@
             session()->set('temp_data', $data);
             return redirect()->to('/register/2');
         }
+
+       
     }
 
 ?>
