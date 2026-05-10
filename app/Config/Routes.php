@@ -17,10 +17,20 @@ $routes->group('admin', function($routes) {
     $routes->post('create-activity', 'ActiviteController::createActivity');
     $routes->get('activities', 'ActiviteController::index');
     $routes->get('activites/update/(:num)', 'ActiviteController::UpdateForm/$1');
-    $routes->get('activites/updated-activity/(:num)', 'ActiviteController::updateActivity/$1');
+    $routes->post('activites/updated-activity', 'ActiviteController::updateActivity');
     $routes->post('activites/delete/(:num)', 'ActiviteController::deleteActivity/$1');
-    $routes->get('regime', 'RegimeController::index');
-    $routes->post('regime/save', 'RegimeController::insertRegime');
+    
+    // Routes pour Régimes
+    $routes->get('regime-form', 'RegimeController::CreationForm');
+    $routes->post('create-regime', 'RegimeController::createRegime');
+    $routes->get('regimes', 'RegimeController::index');
+    $routes->get('regimes/update/(:num)', 'RegimeController::UpdateForm/$1');
+    $routes->post('regimes/updated-regime', 'RegimeController::updateRegime');
+    $routes->post('regimes/delete/(:num)', 'RegimeController::deleteRegime/$1');
+
+    $routes->get('codes', 'AdminController::getInvalidCodes');
+    $routes->get('codes/validate/(:num)', 'AdminController::ValidCode/$1');
+    $routes->get('codes/refuse/(:num)', 'AdminController::RefusedCode/$1');
 });
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'UserController::loginForm');

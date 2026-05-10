@@ -1,53 +1,70 @@
 <?php
-    namespace App\Controllers;
-    use App\Models\RegimeModel;
 
-    class RegimeController extends BaseController {
-        public function index(){
-            return view('admin/regimeForm');
-        }
-        public function insertRegime(){
-        $regimeModel = new RegimeModel();
-  
+namespace App\Controllers;
+use App\Models\RegimeModel;
 
-    $data = [
-        'perc_viande' => $this->request->getPost('perc_viande'),
-        'perc_poisson' => $this->request->getPost('perc_poisson'),
-        'perc_volaille' => $this->request->getPost('perc_volaille'),
-        'variation_poids' => $this->request->getPost('variation_poids'),
-        'duree' => $this->request->getPost('duree'),
-        'price' => $this->request->getPost('price')
+class RegimeController extends BaseController {
 
-    ]; 
-
-     $regimeModel->insert($data);
-
-    return redirect()->to('/regime');
-    
-
+    public function index(){
+        $regime = new RegimeModel();
+        $regimes = $regime->findAll();
+        return view('backoffice/regimes', ['regimes' => $regimes]);
     }
 
-    public function getAll(){
-              $regimeModel = new RegimeModel();
-
-        $data['regime'] = $regimeModel->findAll();
-
-        return redirect()->to('admin/list');
+    public function createRegime(){
+        $regime = new RegimeModel();
+        $rules = $regime->getValidationRules();
+        if(!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
+        $regime->save([
+            'perc_viande' => $this->request->getPost('perc_viande'),
+            'perc_poisson' => $this->request->getPost('perc_poisson'),
+            'perc_volaille' => $this->request->getPost('perc_volaille'),
+            'variation_poids' => $this->request->getPost('variation_poids'),
+            'duree' => $this->request->getPost('duree'),
+            'price' => $this->request->getPost('price')
+        ]);
+        return redirect()->to('/admin/regimes')->with('success', 'Régime créé avec succès');
+    }
 
-        public function findByid($id){
-            $regimeModel = new RegimeModel();
-            $data['id'] = $regimeModel->find($id);
-             return view('regime/detail', $data);
+    public function deleteRegime($id = null){
+        $regime = new RegimeModel();
+        $regime->delete($id);
+        return redirect()->back()->with('success', 'Régime supprimé avec succès');
+    }
+
+    public function updateRegime(){
+        $regime = new RegimeModel();
+        $regimeData = $regime->find($this->request->getPost('id'));
+        $rules = $regime->getValidationRules();
+        if(!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
+        $regime->update($regimeData['id'], [
+            'perc_viande' => $this->request->getPost('perc_viande'),
+            'perc_poisson' => $this->request->getPost('perc_poisson'),
+            'perc_volaille' => $this->request->getPost('perc_volaille'),
+            'variation_poids' => $this->request->getPost('variation_poids'),
+            'duree' => $this->request->getPost('duree'),
+            'price' => $this->request->getPost('price')
+        ]);
+        session()->remove('regime');
+        return redirect()->to('/admin/regimes')->with('success', 'Régime mis à jour avec succès');
+    }
 
-        public function updateRegime($id)
-{
-    $regimeModel = new RegimeModel();
+    public function UpdateForm($id = null){
+        $regime = new RegimeModel();
+        $data['regime'] = $regime->find($id);
+        session()->set('regime', $data['regime']);
+        return view('backoffice/update-regime', $data);
+    }
 
-    $data = [
-        'perc_viande' => $this->request->getPost('perc_viande'),
-        'perc_poisson' => $this->request->getPost('perc_poisson'),
+    public function CreationForm(){
+        return view('backoffice/create-regime');
+    }
+
+}
         'perc_volaille' => $this->request->getPost('perc_volaille'),
         'variation_poids' => $this->request->getPost('variation_poids'),
         'duree' => $this->request->getPost('duree'),
