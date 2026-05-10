@@ -1,11 +1,19 @@
 <?php
 namespace App\Controllers;
 use App\Models\ProfilModel;
-
+use App\Models\ObjectifUserModel;
+use App\Models\ObjectifModel;
 class ProfilController extends BaseController{
-    public function index(){
-        return view('profil/form');
-    }     
+      public function index()
+{
+    $objectifModel = new ObjectifModel();
+
+    $data = [
+        'objectifs' => $objectifModel->findAll()
+    ];
+
+    return view('profil/form', $data);
+}     
 public function insertProfil()
 {
    
@@ -19,24 +27,25 @@ public function insertProfil()
 
     $profilModel->insert($data);
 
-    return $this->response->setJSON([
-        'status' => 'ok'
+      return $this->response->setJSON([
+        'success' => true
     ]);
-    return redirect()->to('profil/profil');
+   
 }
 
 public function profile()
 {
     $userId = session()->get('user_id');
 
-    $model = new ProfilModel();
-    $omodel = new ObjectifUserModel();
+    $profilModel = new ProfilModel();
+    $objectifUserModel= new ObjectifUserModel();
+
 
     $data = [
-        'profil' => $model->getProfil($userId),
-        'objectifs' => $model->getObjectifs($userId)
+        'profil' => $profilModel->getProfil($userId),
+        'objectifs' => $objectifUserModel->getObjectifs($userId)
     ];
 
-    return view('profile', $data);
+    return view('profil/profil', $data);
 }
 }

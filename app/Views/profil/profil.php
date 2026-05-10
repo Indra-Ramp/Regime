@@ -6,7 +6,25 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/profil.css') ?>">
 </head>
 <body>
+  <header class="header">
+    <div class="logo">Vital<span>Vibe</span></div>
 
+    <nav class="nav">
+      <a href="#" class="nav-link active">Home</a>
+     <?php if (!session()->get('id_user')) { ?>
+    <a href="<?= base_url('profil/form') ?>" class="nav-link">Profile</a>
+<?php } else { ?>
+    <a href="<?= base_url('profil/profil') ?>" class="nav-link">Profile</a>
+<?php } ?>
+    </nav>
+
+    <div class="user-zone">
+      <div class="username">
+        <div class="avatar">SM</div>
+        <span>Sophie Martin</span>
+      </div>
+    </div>
+  </header>
 <h2>Profil</h2>
 <table border="1">
     <tr>

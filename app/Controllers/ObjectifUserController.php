@@ -24,20 +24,37 @@ class ObjectifUserController extends BaseController
             'objectifs' => $objectifModel->findAll()
         ]);
     }
+public function store()
+{
+    $objectifModel = new ObjectifUserModel();
 
-    public function store()
-    {
-        $model = new ObjectifUserModel();
+    $idUser = session()->get('user_id');
 
-        $model->insert([
-            'id_user' => session()->get('user_id'),
-            'id_objectif' => $this->request->getPost('id_objectif'),
-            'date_objectif' => date('Y-m-d H:i:s'),
-            'valeur' => $this->request->getPost('valeur')
+    if (!$idUser) {
+        return $this->response->setJSON([
+            'success' => false,
+            'message' => 'Utilisateur non connecté'
         ]);
-
-        return redirect()->to('/objectif-user');
     }
+
+    $data = [
+        'id_user' => $idUser,
+        'id_objectif' => $this->request->getPost('id_objectif'),
+        'date_objectif' => $this->request->getPost('date_objectif'),
+        'valeur' => $this->request->getPost('valeur')
+    ];
+
+    if (!$objectifModel->insert($data)) {
+        return $this->response->setJSON([
+            'success' => false,
+            'errors' => $objectifModel->errors()
+        ]);
+    }
+
+    return $this->response->setJSON([
+        'success' => true
+    ]);
+}
 
     // public function edit($id)
     // {
