@@ -1,3 +1,9 @@
+<?php
+
+    $errors = session()->getFlashData('errors');
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,24 +23,30 @@
                 <p>Reprenez votre parcours bien-être là où vous vous étiez arrêté.</p>
             </header>
 
-            <form class="login-form">
+            <form class="login-form" action="/login" method="POST">
                 <div class="input-group">
                     <label for="email">Adresse email</label>
-                    <input type="email" id="email" placeholder="nom@exemple.com" required>
+                    <input type="email" id="email" placeholder="nom@exemple.com" name="email" value="<?= old('email') ?? '' ?>">
+                    <?php if(isset($errors['email'])): ?>
+                        <span class="error-text"><?= $errors['email'] ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <div class="input-group">
                     <div class="label-row">
                         <label for="password">Mot de passe</label>
                     </div>
-                    <input type="password" id="password" placeholder="••••••••" required>
+                    <input type="password" id="password" placeholder="••••••••" name="password_hash" value="<?= old('password_hash') ?? '' ?>">
+                    <?php if(isset($errors['password_hash'])): ?>
+                        <span class="error-text"><?= $errors['password_hash'] ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <button type="submit" class="btn-login">Se connecter</button>
             </form>
 
             <footer class="login-footer">
-                <p>Pas encore de compte ? <a href="#">Inscrivez-vous gratuitement</a></p>
+                <p>Pas encore de compte ? <a href="/register/1">Inscrivez-vous gratuitement</a></p>
             </footer>
         </div>
         

@@ -24,7 +24,6 @@
     </div>
 
     <script src="https://jsdelivr.net"></script>
-    <script src="<?= base_url('assets/js/CountUserChart.js') ?>"></script>
-    <script src="<?= base_url('assets/js/ComparedTypeChart.js') ?>"></script>
+    <script src="<?= base_url('assets/js/dashboard.js') ?>"></script>
 </body>
 </html>

@@ -199,6 +199,126 @@
     opacity: 0.5;
   }
 
+  /* Style pour la zone visiteur */
+.auth-guest {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-guest {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+/* Bouton Connexion : Discret */
+.btn-guest.login {
+    color: var(--primary);
+    background: transparent;
+}
+
+.btn-guest.login:hover {
+    background: var(--primary-light);
+}
+
+/* Bouton Inscription : "Vibrant" avec la couleur Accent */
+.btn-guest.register {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 4px 12px rgba(242, 139, 109, 0.2);
+}
+
+.btn-guest.register:hover {
+    background: #e67a5a;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(242, 139, 109, 0.3);
+}
+
+/* Positionnement relatif pour le menu */
+.user-dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.chevron-icon {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: 4px;
+}
+
+/* Le menu caché */
+.dropdown-content {
+    position: absolute;
+    top: 120%; /* Juste en dessous du header */
+    right: 0;
+    width: 180px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    padding: 8px;
+    display: none; /* Caché par défaut */
+    z-index: 1001;
+    animation: slideIn 0.2s ease-out;
+}
+
+/* Affichage au survol */
+.user-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Items du menu */
+.dropdown-item {
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+/* Séparateur */
+.dropdown-divider {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 8px 0;
+}
+
+/* Style spécifique Déconnexion */
+.logout-link {
+    color: #e63946; /* Rouge discret pour l'alerte */
+}
+
+.logout-link:hover {
+    background: #fff5f5;
+    color: #d62828;
+}
+
+/* Animation d'entrée */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+    .btn-guest {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+}
+
   @media (max-width: 768px) {
     .header { padding: 0 20px; }
     .nav { display: none; } /* On cache la nav sur mobile pour épurer */

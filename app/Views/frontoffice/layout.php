@@ -1,3 +1,10 @@
+<?php
+
+  helper('user');
+  $user = session()->get('user');
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -22,15 +29,35 @@
     </nav>
 
     <div class="user-zone">
-      <div class="wallet">
-        <span class="wallet-balance">42,50 €</span>
-        <a href="#" class="wallet-add" title="Ajouter">+</a>
-      </div>
+      <?php if (session()->has('user')): ?>
+          <div class="wallet">
+              <span class="wallet-balance"><?= esc($wallet) ?> €</span>
+              <a href="<?= base_url('/wallet/add') ?>" class="wallet-add" title="Ajouter">+</a>
+          </div>
 
-      <div class="username">
-        <div class="avatar">SM</div>
-        <span>Sophie Martin</span>
-      </div>
+          <!-- Conteneur avec menu déroulant -->
+          <div class="user-dropdown">
+              <div class="username">
+                  <div class="avatar"><?= format_username($user['nom'], $user['prenom']) ?></div>
+                  <span><?= esc($user['nom'] . " " . $user['prenom']) ?></span>
+                  <i class="chevron-icon">▾</i>
+              </div>
+              
+              <div class="dropdown-content">
+                  <a href="<?= base_url('/profile') ?>" class="dropdown-item">Mon Profil</a>
+                  <hr class="dropdown-divider">
+                  <a href="<?= base_url('/logout') ?>" class="dropdown-item logout-link">
+                      Se déconnecter
+                  </a>
+              </div>
+          </div>
+
+        <?php else: ?>
+            <div class="auth-guest">
+                <a href="<?= base_url('/login') ?>" class="btn-guest login">Connexion</a>
+                <a href="<?= base_url('/register/1') ?>" class="btn-guest register">S'inscrire</a>
+            </div>
+        <?php endif; ?>
     </div>
   </header>
 
