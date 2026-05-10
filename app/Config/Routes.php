@@ -1,6 +1,8 @@
 <?php
 
 use App\Controllers\RegimeController;
+use App\Controllers\RegimeController;
+use App\Controllers\UserController;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -35,4 +37,4 @@ $routes->group('profil', function($routes){
     $routes->get('show', 'ProfilController::profile');
 
 });
->>>>>>> 03aa73ce7ee91e33483329b2bd61e266c88e504d
+$router->post('/admin/dashboard', 'AdminController::index);
