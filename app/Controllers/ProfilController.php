@@ -55,12 +55,7 @@ public function insertProfil()
     $builder->set($data);
     log_message('debug', 'SQL INSERT: ' . $builder->getCompiledInsert(false));
 
-<<<<<<< HEAD
-    return $this->response->setJSON([
-        'status' => 'ok'
-    ]);
-    return redirect()->to('profil/profil');
-=======
+
     if (!$profilModel->insert($data)) {
         return $this->response->setJSON([
             'success' => false,
@@ -69,7 +64,7 @@ public function insertProfil()
     }
 
     return $this->response->setJSON(['success' => true]);
->>>>>>> 21f5176 (Merge pull request #10 from Indra-Ramp/leo1)
+
 }
 
 public function profile()
