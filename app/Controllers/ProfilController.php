@@ -1,13 +1,31 @@
 <?php
 namespace App\Controllers;
 use App\Models\ProfilModel;
-
+use App\Models\ObjectifUserModel;
+use App\Models\ObjectifModel;
 class ProfilController extends BaseController{
-    public function index(){
-        return view('profil/form');
-    }     
+      public function index()
+{
+    $objectifModel = new ObjectifModel();
+
+    $data = [
+        'objectifs' => $objectifModel->findAll()
+    ];
+
+    return view('profil/form', $data);
+}     
 public function insertProfil()
 {
+    $user   = session()->get('user');
+    $userId = $user['id'] ?? null;
+
+    if (!$userId) {
+        return $this->response->setJSON([
+            'success' => false,
+            'message' => 'Utilisateur non connecté'
+        ]);
+    }
+
     $user   = session()->get('user');
     $userId = $user['id'] ?? null;
 
@@ -23,9 +41,15 @@ public function insertProfil()
     $data = [
         'id_user'        => $userId,
         'telephone'      => $this->request->getPost('telephone'),
+        'id_user'        => $userId,
+        'telephone'      => $this->request->getPost('telephone'),
         'date_naissance' => $this->request->getPost('date_naissance')
     ];
 
+    // ← Affiche la requête SQL générée AVANT l'insert
+    $builder = $profilModel->builder();
+    $builder->set($data);
+    log_message('debug', 'SQL INSERT: ' . $builder->getCompiledInsert(false));
     // ← Affiche la requête SQL générée AVANT l'insert
     $builder = $profilModel->builder();
     $builder->set($data);
@@ -52,14 +76,15 @@ public function profile()
 {
     $userId = session()->get('user_id');
 
-    $model = new ProfilModel();
-    $omodel = new ObjectifUserModel();
+    $profilModel = new ProfilModel();
+    $objectifUserModel= new ObjectifUserModel();
+
 
     $data = [
-        'profil' => $model->getProfil($userId),
-        'objectifs' => $model->getObjectifs($userId)
+        'profil' => $profilModel->getProfil($userId),
+        'objectifs' => $objectifUserModel->getObjectifs($userId)
     ];
 
-    return view('profile', $data);
+    return view('profil/profil', $data);
 }
 }
