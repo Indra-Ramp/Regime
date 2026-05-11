@@ -176,3 +176,58 @@ td form button:hover {
         padding: 15px 20px;
     }
 }
+
+/* MESSAGES DE NOTIFICATION (Succès / Erreur) */
+.success, .error {
+    padding: 14px 20px;
+    margin: 20px auto;
+    max-width: 460px; /* Aligné sur la largeur de la carte de création */
+    border-radius: 12px; /* Coins arrondis modernes */
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    animation: slideDown 0.3s ease-out; /* Petite animation d'entrée */
+}
+
+/* Style Succès : Vert VitalVibe doux */
+.success {
+    background-color: #e9f2ef; /* Ton --primary-light */
+    color: #2d5a4c;            /* Ton --primary */
+    border: 1.5px solid #d2e4df;
+}
+
+/* Style Erreur : Rouge / Corail doux */
+.error {
+    background-color: #fff5f5; 
+    color: #e63946;            /* Rouge d'alerte */
+    border: 1.5px solid #ffe3e3;
+}
+
+/* Petit indicateur visuel avant le texte (Optionnel mais très pro) */
+.success::before {
+    content: "✓";
+    font-weight: 800;
+    font-size: 16px;
+}
+
+.error::before {
+    content: "⚠";
+    font-weight: 800;
+    font-size: 16px;
+}
+
+/* Animation d'apparition fluide */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,3 +1,9 @@
+<?php
+
+    $success = session()->getFlashData('success');
+    $error = session()->getFlashData('error');
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +18,15 @@
             <h2>Liste des Codes</h2>
             <p>Visualisez, modifiez ou supprimez les codes du programme.</p>
         </div>
+        <?php if(isset($success)){?>
+            <div class="success">
+                <?= $success;?>
+            </div>
+        <?php } else if(isset($error)){ ?>
+            <div class="error">
+                <?= $error;?>
+            </div>
+        <?php }?>
         <div class="responsive-table">
             <table border="1">
                 <thead>

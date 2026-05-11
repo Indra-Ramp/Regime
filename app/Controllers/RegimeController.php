@@ -25,15 +25,23 @@ class RegimeController extends BaseController {
         if(!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-        $regime->save([
-            'perc_viande' => $this->request->getPost('perc_viande'),
-            'perc_poisson' => $this->request->getPost('perc_poisson'),
-            'perc_volaille' => $this->request->getPost('perc_volaille'),
-            'variation_poids' => $this->request->getPost('variation_poids'),
-            'duree' => $this->request->getPost('duree'),
-            'price' => $this->request->getPost('price')
-        ]);
-        return redirect()->to('/admin/regimes')->with('success', 'Régime créé avec succès');
+        $perc_viande = $this->request->getPost('perc_viande'),
+        $perc_poisson =  $this->request->getPost('perc_poisson'),
+        $perc_volaille = $this->request->getPost('perc_volaille'),
+        if($regime->ValidationRules($perc_viande, $perc_poisson, $perc_volaille)){
+            $regime->save([
+                'perc_viande' => $perc_viande,
+                'perc_poisson' => $perc_poisson,
+                'perc_volaille' => $perc_volaille,
+                'variation_poids' => $this->request->getPost('variation_poids'),
+                'duree' => $this->request->getPost('duree'),
+                'price' => $this->request->getPost('price')
+            ]);
+            return redirect()->to('/admin/regimes')->with('success', 'Régime créé avec succès');
+        } else{
+            return redirect()->to('/admin/regimes')->with('error', 'Disproportion du regime');
+        }
+        
     }
 
     public function deleteRegime($id = null){
@@ -49,16 +57,23 @@ class RegimeController extends BaseController {
         if(!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-        $regime->update($regimeData['id'], [
-            'perc_viande' => $this->request->getPost('perc_viande'),
-            'perc_poisson' => $this->request->getPost('perc_poisson'),
-            'perc_volaille' => $this->request->getPost('perc_volaille'),
-            'variation_poids' => $this->request->getPost('variation_poids'),
-            'duree' => $this->request->getPost('duree'),
-            'price' => $this->request->getPost('price')
-        ]);
-        session()->remove('regime');
-        return redirect()->to('/admin/regimes')->with('success', 'Régime mis à jour avec succès');
+        $perc_viande = $this->request->getPost('perc_viande'),
+        $perc_poisson =  $this->request->getPost('perc_poisson'),
+        $perc_volaille = $this->request->getPost('perc_volaille'),
+        if($regime->ValidationRules($perc_viande, $perc_poisson, $perc_volaille)){
+            $regime->update($regimeData['id'], [
+                'perc_viande' => $perc_viande,
+                'perc_poisson' => $perc_poisson,
+                'perc_volaille' => $perc_volaille,
+                'variation_poids' => $this->request->getPost('variation_poids'),
+                'duree' => $this->request->getPost('duree'),
+                'price' => $this->request->getPost('price')
+            ]);
+            session()->remove('regime');
+            return redirect()->to('/admin/regimes')->with('success', 'Régime mis à jour avec succès');
+        } else {
+            return redirect()->to('/admin/regimes')->with('error', 'Disproportion du regime');
+        }
     }
 
     public function UpdateForm($id = null){
