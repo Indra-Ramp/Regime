@@ -19,9 +19,20 @@
 public function getProfil($user_id)
 {
     $profil = $this->db->table('user u')
-        ->select('u.*, p.telephone, p.date_naissance, pm.montant')
+        ->select('
+            u.*,
+            p.telephone,
+            p.date_naissance,
+            pm.montant,
+            ta.label AS abonnement_label,
+            ta.montant AS abonnement_montant,
+            ta.perc_reduction,
+            tau.date_abonnement
+        ')
         ->join('profil p', 'p.id_user = u.id', 'left')
         ->join('porte_monnaie pm', 'pm.id_user = u.id', 'left')
+        ->join('type_abonnement_user tau', 'tau.id_user = u.id', 'left')
+        ->join('type_abonnement ta', 'ta.id = tau.id_abonnement', 'left')
         ->where('u.id', $user_id)
         ->get()
         ->getRowArray();

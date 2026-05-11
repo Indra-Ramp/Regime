@@ -40,6 +40,36 @@ class RegimeModel extends Model {
             'rules' => 'required|numeric|greater_than_equal_to[0]'
         ]
     ];
+     public function getSuggestions($objectifLabel, $imc)
+    {
+        $objectifLabel = strtolower($objectifLabel);
+
+        // Déterminer le filtre selon l'objectif
+        if (str_contains($objectifLabel, 'perdre')) {
+            return $this->where('variation_poids <', 0)->findAll();
+        }
+
+        if (str_contains($objectifLabel, 'prendre')) {
+            return $this->where('variation_poids >', 0)->findAll();
+        }
+
+        // IMC idéal — dépend de l'IMC actuel
+        if (str_contains($objectifLabel, 'imc') || str_contains($objectifLabel, 'idéal')) {
+            if ($imc > 25) {
+                return $this->where('variation_poids <', 0)->findAll();
+            } elseif ($imc < 18.5) {
+                return $this->where('variation_poids >', 0)->findAll();
+            } else {
+                // IMC déjà idéal → régimes d'entretien
+                return $this->where('variation_poids >=', -0.5)
+                            ->where('variation_poids <=', 0.5)
+                            ->findAll();
+            }
+        }
+
+        // Par défaut retourner tous les régimes
+        return $this->findAll();
+    }
 
 }
 

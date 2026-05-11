@@ -69,15 +69,21 @@ public function insertProfil()
 
 public function profile()
 {
+    helper('user');
+    
     $user   = session()->get('user');
     $userId = (int)($user['id'] ?? 0);
 
-    $profilModel      = new ProfilModel();
+    $profilModel       = new ProfilModel();
     $objectifUserModel = new ObjectifUserModel();
 
+    $profil = $profilModel->getProfil($userId);
+
     $data = [
-        'profil'    => $profilModel->getProfil($userId),
-        'objectifs' => $objectifUserModel->getObjectifs($userId)
+        'user'      => $user,           // ← ajoute ça
+        'profil'    => $profil,
+        'objectifs' => $objectifUserModel->getObjectifs($userId),
+        'wallet'    => $profil['montant'] ?? 0,
     ];
 
     return view('profil/profil', $data);

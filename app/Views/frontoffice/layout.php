@@ -91,7 +91,13 @@
             <a href="<?= base_url('/register/1') ?>" class="btn-main">Créer mon profil gratuit</a>
         </div>
     <?php endif; ?>
+    <?php if (session()->has('user')): ?>
+    <div class="floating-cta">
+        <p>Passez à la vitesse supérieure !</p>
+        <a href="<?= base_url('abonnement') ?>" class="btn-main">S'abonner</a>
+    </div>
+<?php endif; ?>
   </main>
-
+<a href="<?= base_url('regime/suggestions') ?>" class="btn-main">Voir mes régimes suggérés</a>
 </body>
 </html>
