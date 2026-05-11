@@ -166,6 +166,49 @@ h2 {
     font-weight: 700;
     color: var(--text-main);
   }
+  .dropdown-content {
+    position: absolute;
+    top: 120%; /* Juste en dessous du header */
+    right: 0;
+    width: 180px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    padding: 8px;
+    display: none; /* Caché par défaut */
+    z-index: 1001;
+    animation: slideIn 0.2s ease-out;
+}
+
+/* Affichage au survol */
+.user-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Items du menu */
+.dropdown-item {
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+/* Séparateur */
+.dropdown-divider {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 8px 0;
+}
 .card {
     background: var(--surface);
     border: 1px solid var(--border);

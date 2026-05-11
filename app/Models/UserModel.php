@@ -48,15 +48,14 @@
                     ->orderBy('month', 'ASC')
                     ->get()
                     ->getResultArray();
-    }
+        }
     
-    public function getRoleUser($idUser){
-        return $this->db->table('user as u')
-        ->select('r.label as role')
-        ->join('role as r', 'r.id = u.id_role')
-        ->where('u.id', $idUser)
-        ->get()
-        ->getRow();
+        public function connectAsAdmin($email){
+            $emailMatch = $this->where('email', $email)->first();
+            if($emailMatch != NULL && $emailMatch['id_role'] == 1){
+                return true;
+            }
+            return false;
         }
-        }
+    }
 ?>

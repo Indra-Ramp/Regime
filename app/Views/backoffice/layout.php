@@ -44,20 +44,12 @@
               </div>
               
               <div class="dropdown-content">
-                  <a href="<?= base_url('/profile') ?>" class="dropdown-item">Mon Profil</a>
                   <hr class="dropdown-divider">
                   <a href="<?= base_url('/logout') ?>" class="dropdown-item logout-link">
                       Se déconnecter
                   </a>
               </div>
           </div>
-
-        <?php else: ?>
-            <div class="auth-guest">
-                <a href="<?= base_url('/login') ?>" class="btn-guest login">Connexion</a>
-                <a href="<?= base_url('/register/1') ?>" class="btn-guest register">S'inscrire</a>
-            </div>
-        <?php endif; ?>
     </div>
   </header>
 

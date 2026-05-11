@@ -1,0 +1,315 @@
+/* ─── Variables ───────────────────────────────────────────── */
+:root {
+    --bg:           #f8faf9;
+    --surface:      #ffffff;
+    --primary:      #2d5a4c;
+    --primary-light:#e9f2ef;
+    --accent:       #f28b6d;
+    --text-main:    #1a2e28;
+    --text-muted:   #6b857d;
+    --border:       #e2ede9;
+    --shadow:       0 20px 40px rgba(45, 90, 76, 0.08);
+    --success-clr:  #2d8a60;
+    --error-clr:    #d94f4f;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: all 0.2s ease;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+/* ─── Blobs ───────────────────────────────────────────────── */
+.blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: 0;
+    pointer-events: none;
+}
+.blob-1 {
+    width: 220px; height: 220px;
+    background: var(--primary-light);
+    top: -60px; left: -60px;
+    opacity: .5;
+}
+.blob-2 {
+    width: 160px; height: 160px;
+    background: var(--accent);
+    bottom: -30px; right: -30px;
+    opacity: .2;
+}
+
+/* ─── Container & Card ────────────────────────────────────── */
+.container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 520px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.80);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,.9);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    animation: cardIn .4s cubic-bezier(.4,0,.2,1) both;
+}
+
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Header ──────────────────────────────────────────────── */
+.header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+}
+.logo span { color: var(--accent); font-style: italic; }
+
+.header h1 {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.header p {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* ─── Section titre ───────────────────────────────────────── */
+.section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+    border-bottom: 1.5px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+}
+
+/* ─── Abonnement actuel ───────────────────────────────────── */
+.actuel-box {
+    background: var(--primary-light);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.actuel-icon {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.actuel-icon svg { width: 20px; height: 20px; color: #fff; }
+
+.actuel-info { flex: 1; }
+.actuel-info .label {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+}
+.actuel-info .value {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+}
+.actuel-info .date {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.no-abonnement {
+    text-align: center;
+    padding: 18px;
+    color: var(--text-muted);
+    font-size: 14px;
+    background: var(--bg);
+    border: 1.5px dashed var(--border);
+    border-radius: 14px;
+    margin-bottom: 28px;
+}
+
+/* ─── Radio cards abonnement ──────────────────────────────── */
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.radio-label:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+
+.radio-label input[type="radio"] {
+    width: 18px; height: 18px;
+    margin: 0; padding: 0;
+    flex-shrink: 0;
+    accent-color: var(--primary);
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"]:checked + .radio-content {
+    color: var(--primary);
+}
+
+.radio-label:has(input:checked) {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(45,90,76,.08);
+}
+
+.radio-content { flex: 1; }
+.radio-content .radio-label-text {
+    font-size: 15px;
+    font-weight: 700;
+}
+.radio-content .radio-montant {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.badge-reduction {
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 20px;
+    flex-shrink: 0;
+}
+
+/* ─── Message box ─────────────────────────────────────────── */
+.msg-box {
+    border-radius: 12px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 16px;
+    margin-bottom: 0;
+}
+.msg-box.error {
+    max-height: 160px;
+    padding: 11px 16px;
+    margin-bottom: 14px;
+    background: rgba(217,79,79,.08);
+    border: 1px solid rgba(217,79,79,.25);
+    color: var(--error-clr);
+}
+.msg-box.success {
+    max-height: 80px;
+    padding: 11px 16px;
+    margin-bottom: 14px;
+    background: rgba(45,138,96,.08);
+    border: 1px solid rgba(45,138,96,.28);
+    color: var(--success-clr);
+}
+
+/* ─── Bouton ──────────────────────────────────────────────── */
+.btn-save {
+    width: 100%;
+    padding: 13px 20px;
+    border-radius: 12px;
+    border: none;
+    background: var(--primary);
+    color: #fff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(45,90,76,.20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+}
+.btn-save:hover:not(:disabled) {
+    background: #1e3d33;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(45,90,76,.30);
+}
+.btn-save:active:not(:disabled) { transform: translateY(0); }
+.btn-save:disabled { opacity: .58; cursor: not-allowed; transform: none !important; }
+
+.btn-loader {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+}
+.btn-save.loading .btn-text { opacity: 0; }
+.btn-save.loading .btn-loader { opacity: 1; }
+
+.spinner {
+    width: 20px; height: 20px;
+    border: 2.5px solid rgba(255,255,255,.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── Back link ───────────────────────────────────────────── */
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 16px;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+}
+.back-link:hover { color: var(--primary); }
+
+@media (max-width: 480px) {
+    .card { padding: 28px 20px; }
+}

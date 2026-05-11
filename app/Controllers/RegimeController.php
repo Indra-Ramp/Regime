@@ -1,70 +1,151 @@
 <?php
-    namespace App\Controllers;
-    use App\Models\RegimeModel;
 
-    class RegimeController extends BaseController {
-        public function index(){
-            return view('admin/regimeForm');
-        }
-        public function insertRegime(){
-        $regimeModel = new RegimeModel();
-  
+namespace App\Controllers;
+use App\Models\RegimeModel;
+use App\Models\SuiviSanteModel;
+use App\Models\ObjectifUserModel;
+use App\Models\ObjectifModel;
 
-    $data = [
-        'perc_viande' => $this->request->getPost('perc_viande'),
-        'perc_poisson' => $this->request->getPost('perc_poisson'),
-        'perc_volaille' => $this->request->getPost('perc_volaille'),
-        'variation_poids' => $this->request->getPost('variation_poids'),
-        'duree' => $this->request->getPost('duree'),
-        'price' => $this->request->getPost('price')
 
-    ]; 
 
-     $regimeModel->insert($data);
 
-    return redirect()->to('/regime');
-    
+class RegimeController extends BaseController {
 
+    public function index(){
+        $regime = new RegimeModel();
+        $regimes = $regime->findAll();
+        return view('backoffice/regimes', ['regimes' => $regimes]);
     }
 
-    public function getAll(){
-              $regimeModel = new RegimeModel();
+    public function createRegime(){
+        $regime = new RegimeModel();
+        $rules = $regime->getValidationRules();
+        if(!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+        $regime->save([
+            'perc_viande' => $this->request->getPost('perc_viande'),
+            'perc_poisson' => $this->request->getPost('perc_poisson'),
+            'perc_volaille' => $this->request->getPost('perc_volaille'),
+            'variation_poids' => $this->request->getPost('variation_poids'),
+            'duree' => $this->request->getPost('duree'),
+            'price' => $this->request->getPost('price')
+        ]);
+        return redirect()->to('/admin/regimes')->with('success', 'Régime créé avec succès');
+    }
 
-        $data['regime'] = $regimeModel->findAll();
+    public function deleteRegime($id = null){
+        $regime = new RegimeModel();
+        $regime->delete($id);
+        return redirect()->back()->with('success', 'Régime supprimé avec succès');
+    }
 
-        return redirect()->to('admin/list');
+    public function updateRegime(){
+        $regime = new RegimeModel();
+        $regimeData = $regime->find($this->request->getPost('id'));
+        $rules = $regime->getValidationRules();
+        if(!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+        $regime->update($regimeData['id'], [
+            'perc_viande' => $this->request->getPost('perc_viande'),
+            'perc_poisson' => $this->request->getPost('perc_poisson'),
+            'perc_volaille' => $this->request->getPost('perc_volaille'),
+            'variation_poids' => $this->request->getPost('variation_poids'),
+            'duree' => $this->request->getPost('duree'),
+            'price' => $this->request->getPost('price')
+        ]);
+        session()->remove('regime');
+        return redirect()->to('/admin/regimes')->with('success', 'Régime mis à jour avec succès');
+    }
+
+    public function UpdateForm($id = null){
+        $regime = new RegimeModel();
+        $data['regime'] = $regime->find($id);
+        session()->set('regime', $data['regime']);
+        return view('backoffice/update-regime', $data);
+    }
+
+    public function CreationForm(){
+        return view('backoffice/create-regime');
+    }
+
+// }
+//         'perc_volaille' => $this->request->getPost('perc_volaille'),
+//         'variation_poids' => $this->request->getPost('variation_poids'),
+//         'duree' => $this->request->getPost('duree'),
+//         'price' => $this->request->getPost('price')
+//     ];
+
+//     $regimeModel->update($id, $data);
+
+//     return redirect()->to('/regime');
+// }
+   public function suggestions()
+    {
+        $user   = session()->get('user');
+        $userId = (int)($user['id'] ?? 0);
+
+        // Dernier suivi santé
+        $suiviModel = new SuiviSanteModel();
+        $suivi      = $suiviModel->where('id_user', $userId)
+                                 ->orderBy('id', 'DESC')
+                                 ->first();
+
+        $poids  = $suivi['poids']  ?? null;
+        $taille = $suivi['taille'] ?? null;
+
+        // Calcul IMC
+        $imc = null;
+        if ($poids && $taille) {
+            $tailleM = $taille / 100;
+            $imc     = round($poids / ($tailleM * $tailleM), 1);
         }
 
-        public function findByid($id){
-            $regimeModel = new RegimeModel();
-            $data['id'] = $regimeModel->find($id);
-             return view('regime/detail', $data);
+        // Objectif actuel de l'user
+        $objectifUserModel = new ObjectifUserModel();
+        $objectifModel     = new ObjectifModel();
+
+        $objectifUser = $objectifUserModel->where('id_user', $userId)
+                                          ->orderBy('id', 'DESC')
+                                          ->first();
+
+        $objectifLabel = '';
+        if ($objectifUser) {
+            $objectif      = $objectifModel->find($objectifUser['id_objectif']);
+            $objectifLabel = $objectif['label'] ?? '';
         }
 
-        public function updateRegime($id)
-{
-    $regimeModel = new RegimeModel();
+        // Suggestions de régimes
+        $regimeModel = new RegimeModel();
+        $regimes     = $regimeModel->getSuggestions($objectifLabel, $imc);
 
-    $data = [
-        'perc_viande' => $this->request->getPost('perc_viande'),
-        'perc_poisson' => $this->request->getPost('perc_poisson'),
-        'perc_volaille' => $this->request->getPost('perc_volaille'),
-        'variation_poids' => $this->request->getPost('variation_poids'),
-        'duree' => $this->request->getPost('duree'),
-        'price' => $this->request->getPost('price')
-    ];
+        $data = [
+            'regimes'       => $regimes,
+            'imc'           => $imc,
+            'objectifLabel' => $objectifLabel,
+            'poids'         => $poids,
+            'taille'        => $taille,
+        ];
 
-    $regimeModel->update($id, $data);
+        return view('regime/suggestions', $this->data + $data);
+    }
 
-    return redirect()->to('/regime');
-}
+    public function choisir($id)
+    {
+        $user   = session()->get('user');
+        $userId = (int)($user['id'] ?? 0);
 
-public function deleteRegime($id)
-{
-    $regimeModel = new RegimeModel();
+        $data = [
+            'id_user'      => $userId,
+            'id_regime'    => $id,
+            'date_regime'  => date('Y-m-d H:i:s'),
+        ];
 
-    $regimeModel->delete($id);
+        $this->db = \Config\Database::connect();
+        $this->db->table('regime_user')->insert($data);
 
-    return redirect()->to('/regime');
-}
+        return $this->response->setJSON(['success' => true]);
+    }
+
     }

@@ -95,7 +95,6 @@
             session()->remove('user');
             return redirect()->to('/');
         }
-
        
     }
 
