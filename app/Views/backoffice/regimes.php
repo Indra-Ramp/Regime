@@ -12,8 +12,7 @@
             <h2>Liste des Régimes</h2>
             <p>Visualisez, modifiez ou supprimez les régimes du programme.</p>
         </div>
-        <div class="responsive-table">
-            <form action="/admin/regimes" method="get">
+        <div class="responsive-table col-md-8">
                 <table border="1">
                     <thead>
                         <tr>
@@ -48,7 +47,6 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-            </form>
         </div>
         <div style="margin-top: 20px;">
             <a href="/admin/regime-form" class="btn-add">+ Ajouter un régime</a>

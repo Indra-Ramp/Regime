@@ -17,7 +17,7 @@ $routes->group('admin', function($routes) {
     $routes->post('create-activity', 'ActiviteController::createActivity');
     $routes->get('activities', 'ActiviteController::index');
     $routes->get('activites/update/(:num)', 'ActiviteController::UpdateForm/$1');
-    $routes->post('activites/updated-activity', 'ActiviteController::updateActivity');
+    $routes->post('activities/updated-activity', 'ActiviteController::updateActivity');
     $routes->post('activites/delete/(:num)', 'ActiviteController::deleteActivity/$1');
     
     // Routes pour Régimes
@@ -64,8 +64,4 @@ $routes->group('regime', function($routes) {
 $routes->group('abonnement', function($routes) {
     $routes->get('/', 'AbonnementController::index');
     $routes->post('store', 'AbonnementController::store');
-});
-$routes->group('activite', function($routes) {
-    $routes->get('suggestions', 'ActiviteController::suggestions');
-    $routes->post('choisir/(:num)', 'ActiviteController::choisir/$1');
 });

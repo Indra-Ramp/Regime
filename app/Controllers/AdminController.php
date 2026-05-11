@@ -86,10 +86,6 @@
             // $id = $this->request->getGet('id');
             $code = $codeModel->find($id);
 
-            if(!$code){
-                return redirect()->back()->with('error', 'Code non trouvé');
-            }
-
             $monnaieData = $monnaie->where('id_user', $code['id_user'])->first();
             
             if(!$monnaieData){
@@ -100,8 +96,10 @@
                 return redirect()->back()->with('error', 'Code non trouvé');
             }
             $monnaieData['montant'] += $newCode['montant'];
-            $monnaie->update($monnaieData['id'], ['montant' => $monnaieData['montant']]);
-            $codeModel->update($code['id'], ['statut' => 'valide']);
+            $m = $monnaie->update($monnaieData['id'], ['montant' => $monnaieData['montant']]);
+            $c = $codeModel->update($code['id'], ['statut' => 'valide']);
+
+            var_dump($code);
             
             return redirect()->to('/admin/codes')->with('success', 'Code validé et montant ajouté au porte-monnaie');
         }

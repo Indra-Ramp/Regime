@@ -18,7 +18,7 @@
             ],
             'statut' => [
                 'label' => 'statut',
-                'rules' => 'required|in_list[actif,inactif]'
+                'rules' => 'required|in_list[en attente,valide,refuse]'
             ],
             'date_track' => [
                 'label' => 'date de suivi',
