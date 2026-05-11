@@ -197,6 +197,24 @@ h2 {
     border-radius: 8px;
     transition: background 0.2s;
 }
+.btn-main {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 12px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;++++
+    box-shadow: 0 4px 12px rgba(45,90,76,.20);
+    transition: all .2s ease;
+}
+
+.btn-main:hover {
+    background: #1e3d33;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(45,90,76,.30);
+}
 
 .dropdown-item:hover {
     background: var(--primary-light);

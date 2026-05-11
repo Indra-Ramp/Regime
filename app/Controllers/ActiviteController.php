@@ -2,8 +2,13 @@
 
     namespace App\Controllers;
     use App\Models\ActiviteModel;
+    use App\Models\ActiviteUserModel;
+
     use CodeIgniter\Model;
 
+use App\Models\SuiviSanteModel;
+use App\Models\ObjectifUserModel;
+use App\Models\ObjectifModel;
     class ActiviteController extends BaseController{
 
         public function index(){
@@ -59,5 +64,70 @@
         public function CreationForm(){
             return view('backoffice/create-activity');
         }
+         public function suggestions()
+    {
+        $user   = session()->get('user');
+        $userId = (int)($user['id'] ?? 0);
+
+        $suiviModel = new SuiviSanteModel();
+        $suivi      = $suiviModel->where('id_user', $userId)
+                                 ->orderBy('id', 'DESC')
+                                 ->first();
+
+        $poids  = $suivi['poids']  ?? null;
+        $taille = $suivi['taille'] ?? null;
+
+        $imc = null;
+        if ($poids && $taille) {
+            $tailleM = $taille / 100;
+            $imc     = round($poids / ($tailleM * $tailleM), 1);
+        }
+
+        $objectifUserModel = new ObjectifUserModel();
+        $objectifModel     = new ObjectifModel();
+
+        $objectifUser = $objectifUserModel->where('id_user', $userId)
+                                          ->orderBy('id', 'DESC')
+                                          ->first();
+
+        $objectifLabel = '';
+        if ($objectifUser) {
+            $objectif      = $objectifModel->find($objectifUser['id_objectif']);
+            $objectifLabel = $objectif['label'] ?? '';
+        }
+
+        $activiteModel = new ActiviteModel();
+        $activites     = $activiteModel->getSuggestions($objectifLabel, $imc);
+
+        $data = [
+            'activites'     => $activites,
+            'imc'           => $imc,
+            'objectifLabel' => $objectifLabel,
+            'poids'         => $poids,
+            'taille'        => $taille,
+        ];
+
+        return view('activite/suggestions', $this->data + $data);
+    }
+
+    public function choisir($id)
+    {
+        $user   = session()->get('user');
+        $userId = (int)($user['id'] ?? 0);
+
+        $activiteUserModel = new ActiviteUserModel();
+
+        $data = [
+            'id_user'       => $userId,
+            'id_activite'   => $id,
+            'date_activite' => date('Y-m-d H:i:s'),
+        ];
+
+        if (!$activiteUserModel->insert($data)) {
+            return $this->response->setJSON(['success' => false]);
+        }
+
+        return $this->response->setJSON(['success' => true]);
+    }
     }
 ?>
