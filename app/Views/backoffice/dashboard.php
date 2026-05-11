@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - VitalVibe</title>
+
+<?= $this->extend('sidebar/sidebar') ?>
+  
+<?= $this->section('css') ?>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="/assets/css/dashboard.css">
-</head>
-<body>
+<?= $this->endSection() ?>
 
+<?= $this->section('content') ?>
     <div class="container">
         <header class="db-header">
             <h1>Tableau de bord</h1>
@@ -50,5 +48,4 @@
         </div>
     </div>
     <script src="<?= base_url('assets/js/dashboard.js') ?>"></script>
-</body>
-</html>
+<?= $this->endSection() ?>

@@ -31,6 +31,11 @@ $routes->group('admin', function($routes) {
     $routes->get('codes', 'AdminController::getInvalidCodes');
     $routes->get('codes/validate/(:num)', 'AdminController::ValidCode/$1');
     $routes->post('codes/refuse/(:num)', 'AdminController::RefusedCode/$1');
+    $routes->get('codes/create-form', 'AdminController::createCodeForm');
+    $routes->post('codes/create', 'AdminController::createCode');
+    $routes->get('codes/update/(:num)', 'AdminController::updateCodeForm/$1');
+    $routes->post('codes/update', 'AdminController::updateCode');
+    $routes->post('codes/delete/(:num)', 'AdminController::deleteCode/$1');
 });
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'UserController::loginForm');
@@ -64,4 +69,8 @@ $routes->group('regime', function($routes) {
 $routes->group('abonnement', function($routes) {
     $routes->get('/', 'AbonnementController::index');
     $routes->post('store', 'AbonnementController::store');
+});
+$routes->group('activite', function($routes){
+    $routes->get('suggestions', 'ActiviteController::suggestions');
+    $routes->post('choisir/(:num)', 'ActiviteControler::choisir/$1');
 });

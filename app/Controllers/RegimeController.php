@@ -25,9 +25,9 @@ class RegimeController extends BaseController {
         if(!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-        $perc_viande = $this->request->getPost('perc_viande'),
-        $perc_poisson =  $this->request->getPost('perc_poisson'),
-        $perc_volaille = $this->request->getPost('perc_volaille'),
+        $perc_viande = $this->request->getPost('perc_viande');
+        $perc_poisson =  $this->request->getPost('perc_poisson');
+        $perc_volaille = $this->request->getPost('perc_volaille');
         if($regime->ValidationRules($perc_viande, $perc_poisson, $perc_volaille)){
             $regime->save([
                 'perc_viande' => $perc_viande,
@@ -57,9 +57,9 @@ class RegimeController extends BaseController {
         if(!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-        $perc_viande = $this->request->getPost('perc_viande'),
-        $perc_poisson =  $this->request->getPost('perc_poisson'),
-        $perc_volaille = $this->request->getPost('perc_volaille'),
+        $perc_viande = $this->request->getPost('perc_viande');
+        $perc_poisson =  $this->request->getPost('perc_poisson');
+        $perc_volaille = $this->request->getPost('perc_volaille');
         if($regime->ValidationRules($perc_viande, $perc_poisson, $perc_volaille)){
             $regime->update($regimeData['id'], [
                 'perc_viande' => $perc_viande,
@@ -72,7 +72,7 @@ class RegimeController extends BaseController {
             session()->remove('regime');
             return redirect()->to('/admin/regimes')->with('success', 'Régime mis à jour avec succès');
         } else {
-            return redirect()->to('/admin/regimes')->with('error', 'Disproportion du regime');
+            return redirect()->back()->with('error', 'Disproportion du regime');
         }
     }
 

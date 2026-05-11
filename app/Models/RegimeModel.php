@@ -72,8 +72,9 @@ class RegimeModel extends Model {
     }
 
     public function ValidationRules($perc_viande, $perc_poisson, $perc_volaille){
-        $regime['perc'] = $perc_viande + $perc_viande + $perc_volaille;
-        if(($refime['perc'] % 100) != 0){
+        $regime['perc'] = $perc_viande + $perc_poisson + $perc_volaille;
+        var_dump($regime);
+        if(($regime['perc']) != 100){
             return false;
         }
         return true;

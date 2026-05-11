@@ -22,7 +22,8 @@ use App\Models\ObjectifModel;
             $activite = new ActiviteModel();
             $rules = $activite->getValidationRules();
             if(!$this->validate($rules)) {
-                return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+                echo json_encode(['errors' => $this->validator->getErrors()]);
+                return;
             }
             $activite->save([
                 'label' =>$this->request->getPost('label'),
@@ -43,7 +44,7 @@ use App\Models\ObjectifModel;
             $activity = $activite->find($this->request->getPost('id'));
             $rules = $activite->getValidationRules();
             if(!$this->validate($rules)) {
-                return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+                echo json_encode(['errors' => $this->validator->getErrors()]);
             }
             $activite->update($activity['id'], [
                 'label' =>$this->request->getPost('label'),

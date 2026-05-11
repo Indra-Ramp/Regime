@@ -75,7 +75,7 @@
 
         public function getInvalidCodes() {
             $codeModel = new CodeModel();
-            $codes = $codeModel->getLoadingCodes();
+            $codes = $codeModel->findAll(); // Changed to findAll to show all codes
             return view('backoffice/codes', ['codes' => $codes]);
         }
 
@@ -89,11 +89,11 @@
             $monnaieData = $monnaie->where('id_user', $code['id_user'])->first();
             
             if(!$monnaieData){
-                return redirect()->back()->with('error', 'Porte-monnaie de l\'utilisateur non trouvé');
+                echo json_encode(['error' => 'Porte-monnaie de l\'utilisateur non trouvé']);
             } 
             $newCode = $codeModel->getCode($code['code']);
             if(!$newCode){
-                return redirect()->back()->with('error', 'Code non trouvé');
+                echo json_encode(['error' => 'Code non trouvé']);
             }
             $monnaieData['montant'] += $newCode['montant'];
             $m = $monnaie->update($monnaieData['id'], ['montant' => $monnaieData['montant']]);
@@ -109,11 +109,64 @@
             $code = $codeModel->find($id);
 
             if(!$code){
-                return redirect()->back()->with('error', 'Code non trouvé');
+                echo json_encode(['error' => 'Code non trouvé']);
             }
             $codeModel->update($code['id'], ['statut' => 'refuse']);
 
             return redirect()->to('/admin/codes')->with('success', 'Code refusé');
+        }
+
+        public function createCodeForm() {
+            $userModel = new UserModel();
+            $data['users'] = $userModel->findAll();
+            return view('backoffice/create-code', $data);
+        }
+
+        public function createCode() {
+            $codeModel = new CodeModel();
+            $rules = $codeModel->ValidationRules();
+            if(!$this->validate($rules)) {
+                echo json_encode(['errors' => $this->validator->getErrors()]);
+            }
+            $codeModel->save([
+                'code' => $this->request->getPost('code'),
+                'id_user' => $this->request->getPost('id_user'),
+                'statut' => $this->request->getPost('statut'),
+                'date_track' => $this->request->getPost('date_track')
+            ]);
+            return redirect()->to('/admin/codes')->with('success', 'Code créé avec succès');
+        }
+
+        public function updateCodeForm($id = null) {
+            $codeModel = new CodeModel();
+            $userModel = new UserModel();
+            $data['code'] = $codeModel->find($id);
+            $data['users'] = $userModel->findAll();
+            session()->set('code', $data['code']);
+            return view('backoffice/update-code', $data);
+        }
+
+        public function updateCode() {
+            $codeModel = new CodeModel();
+            $codeData = $codeModel->find($this->request->getPost('id'));
+            $rules = $codeModel->ValidationRules();
+            if(!$this->validate($rules)) {
+                echo json_encode(['errors' => $this->validator->getErrors()]);
+            }
+            $codeModel->update($codeData['id'], [
+                'code' => $this->request->getPost('code'),
+                'id_user' => $this->request->getPost('id_user'),
+                'statut' => $this->request->getPost('statut'),
+                'date_track' => $this->request->getPost('date_track')
+            ]);
+            session()->remove('code');
+            return redirect()->to('/admin/codes')->with('success', 'Code mis à jour avec succès');
+        }
+
+        public function deleteCode($id = null) {
+            $codeModel = new CodeModel();
+            $codeModel->delete($id);
+            return redirect()->to('/admin/codes')->with('success', 'Code supprimé avec succès');
         }
 
     }

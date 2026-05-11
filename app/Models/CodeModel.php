@@ -14,7 +14,7 @@
             ],
             'id_user' => [
                 'label' => 'utilisateur',
-                'rules' => 'required|exists:users,id'
+                'rules' => 'required'
             ],
             'statut' => [
                 'label' => 'statut',
@@ -35,6 +35,10 @@
                         ->join('code as c', 'code_user.code = c.code')
                         ->where('c.code', $code) 
                         ->first();              
+        }
+
+        public function ValidationRules(){
+            return $this->validationRules;
         }
 
     }

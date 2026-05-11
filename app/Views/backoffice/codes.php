@@ -4,15 +4,13 @@
     $error = session()->getFlashData('error');
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codes</title>
+<?= $this->extend('sidebar/sidebar') ?>
+
+<?= $this->section('css') ?>
     <link rel="stylesheet" href="/assets/css/activities.css">
-</head>
-<body>
+<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
     <div class="table-container">
         <div class="table-header">
             <h2>Liste des Codes</h2>
@@ -37,6 +35,7 @@
                         <th>Statut</th>
                         <th>Date de suivi</th>
                         <th>Actions</th>
+                        <th>Validations</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,16 +48,21 @@
                             <td><?= $code['statut'] ?></td>
                             <td><?= $code['date_track'] ?></td>
                                 <td>
-                                <a href="/admin/codes/validate/<?= $code['id'] ?>">Validé</a>
-                                <form action="/admin/codes/refuse/<?= $code['id'] ?>" method="post" style="display:inline;">
-                                    <button type="submit">Refusé</button>
-                                </form>
-                            </td>
+                                    <a href="/admin/codes/update/<?= $code['id'] ?>">Modifier</a>
+                                    <form action="/admin/codes/delete/<?= $code['id'] ?>" method="post" style="display:inline;">
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <a href="/admin/codes/validate/<?= $code['id'] ?>">Validé</a>
+                                    <form action="/admin/codes/refuse/<?= $code['id'] ?>" method="post" style="display:inline;">
+                                        <button type="submit">Refusé</button>
+                                    </form>
+                                </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
-</body>
-</html>
+<?= $this->endSection() ?>

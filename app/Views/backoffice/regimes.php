@@ -4,15 +4,13 @@
     $error = session()->getFlashData('error');
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Régimes</title>
+<?= $this->extend('sidebar/sidebar') ?>
+
+<?= $this->section('css') ?>
     <link rel="stylesheet" href="/assets/css/activities.css">
-</head>
-<body>
+<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
     <div class="table-container">
         <div class="table-header">
             <h2>Liste des Régimes</h2>
@@ -67,5 +65,4 @@
             <a href="/admin/regime-form" class="btn-add">+ Ajouter un régime</a>
         </div>
     </div>
-</body>
-</html>
+<?= $this->endSection() ?>

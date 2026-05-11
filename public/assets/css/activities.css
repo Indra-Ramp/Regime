@@ -1,35 +1,132 @@
 /* Palette de couleurs VitalVibe */
 :root {
-    --vit-bg: #f8faf9;
-    --vit-surface: #ffffff;
-    --vit-primary: #2d5a4c;       /* Vert profond (Boutons principaux, Titres) */
-    --vit-primary-light: #e9f2ef; /* Vert très clair pour les hovers */
-    --vit-accent: #f28b6d;        /* Corail doux */
-    --vit-text-main: #1a2e28;     /* Texte sombre */
-    --vit-text-muted: #6b857d;    /* Texte secondaire gris-vert */
-    --vit-border: #e2ede9;        /* Lignes de séparation douces */
-    --vit-radius-lg: 28px;        /* Coins arrondis de la carte (comme la page de connexion) */
-    --vit-radius-sm: 8px;         /* Coins arrondis des boutons */
-    
-    /* Ombre douce identique à l'effet de la carte de connexion */
-    --vit-shadow-card: 0 10px 40px rgba(45, 90, 76, 0.06);
+        /* Palette VitalVibe "Santé & Bien-être" */
+        --bg: #f8faf9;
+        --surface: #ffffff;
+        --primary: #2d5a4c;         /* Vert profond */
+        --primary-light: #e9f2ef;   /* Hover & fonds légers */
+        --accent: rgb(242, 139, 109);          /* Corail doux */
+        --text-main: #1a2e28;
+        --text-muted: #6b857d;
+        --border: #e2ede9;
+        --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.03);
+        --shadow-card: 0 10px 30px rgba(45, 90, 76, 0.05);
+        --radius: 12px;
+        --radius-lg: 24px;
+    }
+
+    * { 
+        box-sizing: border-box; 
+        margin: 0; 
+        padding: 0; 
+        transition: all 0.25s ease;
+    }
+
+    body {
+        font-family: 'Inter', -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text-main);
+        -webkit-font-smoothing: antialiased;
+        padding: 40px 20px;
+    }
+
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    /* HEADER DU DASHBOARD */
+    .db-header {
+        margin-bottom: 40px;
+    }
+
+    .db-header h1 {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -0.5px;
+        margin-bottom: 6px;
+    }
+
+    .db-header p {
+        color: var(--text-muted);
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .form-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid var(--divider);
+    animation: slideDown 0.3s ease-out;
 }
 
-/* Reset de base */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-body {
-    font-family: 'Inter', -apple-system, sans-serif;
-    background-color: var(--vit-bg);
-    color: var(--vit-text-main);
-    padding: 60px 20px;
-    -webkit-font-smoothing: antialiased;
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 8px;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.btn-add {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-save {
+    background: var(--accent); /* Ton violet */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.text-loss { color: #e63946; font-weight: 600; } /* Rouge pour perte de poids */
+.text-gain { color: #2a9d8f; font-weight: 600; } /* Vert pour prise */
+
+.badge {
+    background: #f0f2f5;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
 /* LE CONTENEUR DU TABLEAU (Style "Card") */
 .table-container {
     max-width: 1000px;

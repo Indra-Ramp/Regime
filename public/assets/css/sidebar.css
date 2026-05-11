@@ -1,0 +1,114 @@
+:root {
+    --bg: #f8faf9;
+            --surface: #ffffff;
+            --primary: #2d5a4c;         /* Vert profond */
+            --primary-light: #e9f2ef;   /* Hover & fonds légers */
+            --accent: rgb(242, 139, 109);          /* Corail doux */
+            --text-main: #1a2e28;
+            --text-muted: #6b857d;
+            --border: #e2ede9;
+            --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.03);
+            --shadow-card: 0 10px 30px rgba(45, 90, 76, 0.05);
+            --radius: 12px;
+            --radius-lg: 24px;
+}
+
+.sidebar-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f4f7f6;
+}
+
+.sidebar {
+    width: 260px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--divider);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+    position: fixed;
+    height: 100vh;
+}
+
+/* Brand / Logo */
+.brand {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-main);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    padding-left: 12px;
+}
+
+.brand-vibe {
+    color: var(--accent);
+}
+
+/* Navigation List */
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav li {
+    margin-bottom: 8px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+/* Hover & Active States */
+.sidebar-nav a:hover {
+    background: var(--hover-bg);
+    color: var(--primary);
+}
+
+.sidebar-nav a.active {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 10px 15px -3px rgba(109, 140, 125, 0.3);
+}
+
+/* Icons */
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.5;
+}
+
+/* Divider */
+.nav-divider {
+    border: 0;
+    border-top: 1px solid var(--divider);
+    margin: 20px 0;
+}
+
+/* Logout Special Style */
+.logout-link {
+    color: #ff7675 !important; /* Corail/Rouge pour la sortie */
+}
+
+.logout-link:hover {
+    background: #fff5f5 !important;
+}
+
+/* Main Container adjustment */
+.main-container {
+    margin-left: 260px; /* Doit correspondre à la largeur de la sidebar */
+    width: 100%;
+    padding: 30px;
+}
