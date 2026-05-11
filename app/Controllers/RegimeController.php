@@ -2,6 +2,12 @@
 
 namespace App\Controllers;
 use App\Models\RegimeModel;
+use App\Models\SuiviSanteModel;
+use App\Models\ObjectifUserModel;
+use App\Models\ObjectifModel;
+
+
+
 
 class RegimeController extends BaseController {
 
@@ -75,6 +81,73 @@ class RegimeController extends BaseController {
 
 //     return redirect()->to('/regime');
 // }
+   public function suggestions()
+    {
+        $user   = session()->get('user');
+        $userId = (int)($user['id'] ?? 0);
+
+        // Dernier suivi santé
+        $suiviModel = new SuiviSanteModel();
+        $suivi      = $suiviModel->where('id_user', $userId)
+                                 ->orderBy('id', 'DESC')
+                                 ->first();
+
+        $poids  = $suivi['poids']  ?? null;
+        $taille = $suivi['taille'] ?? null;
+
+        // Calcul IMC
+        $imc = null;
+        if ($poids && $taille) {
+            $tailleM = $taille / 100;
+            $imc     = round($poids / ($tailleM * $tailleM), 1);
+        }
+
+        // Objectif actuel de l'user
+        $objectifUserModel = new ObjectifUserModel();
+        $objectifModel     = new ObjectifModel();
+
+        $objectifUser = $objectifUserModel->where('id_user', $userId)
+                                          ->orderBy('id', 'DESC')
+                                          ->first();
+
+        $objectifLabel = '';
+        if ($objectifUser) {
+            $objectif      = $objectifModel->find($objectifUser['id_objectif']);
+            $objectifLabel = $objectif['label'] ?? '';
+        }
+
+        // Suggestions de régimes
+        $regimeModel = new RegimeModel();
+        $regimes     = $regimeModel->getSuggestions($objectifLabel, $imc);
+
+        $data = [
+            'regimes'       => $regimes,
+            'imc'           => $imc,
+            'objectifLabel' => $objectifLabel,
+            'poids'         => $poids,
+            'taille'        => $taille,
+        ];
+
+        return view('regime/suggestions', $this->data + $data);
+    }
+
+    public function choisir($id)
+    {
+        $user   = session()->get('user');
+        $userId = (int)($user['id'] ?? 0);
+
+        $data = [
+            'id_user'      => $userId,
+            'id_regime'    => $id,
+            'date_regime'  => date('Y-m-d H:i:s'),
+        ];
+
+        $this->db = \Config\Database::connect();
+        $this->db->table('regime_user')->insert($data);
+
+        return $this->response->setJSON(['success' => true]);
+    }
+
 
 // public function deleteRegime($id)
 // {

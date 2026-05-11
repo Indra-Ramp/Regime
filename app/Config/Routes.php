@@ -57,3 +57,11 @@ $routes->group('profil', function($routes){
     $routes->get('show', 'ProfilController::profile');
 
 });
+$routes->group('regime', function($routes) {
+    $routes->get('suggestions', 'RegimeController::suggestions');
+    $routes->post('choisir/(:num)', 'RegimeController::choisir/$1');
+});
+$routes->group('abonnement', function($routes) {
+    $routes->get('/', 'AbonnementController::index');
+    $routes->post('store', 'AbonnementController::store');
+});

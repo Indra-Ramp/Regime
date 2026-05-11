@@ -5,7 +5,8 @@
 
     class TypeAbonnementUser extends Model {
         protected $table = 'type_abonnement_user';
-        protected $allowedFields = ['id_user', 'id_type_abonnement'];
+        // Corrige dans TypeAbonnementUser
+protected $allowedFields = ['id_user', 'id_abonnement', 'date_abonnement']; 
 
         public function typeAbonnementChart(){
             return $this->db->table('type_abonnement_user as tau')
