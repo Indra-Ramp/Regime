@@ -65,3 +65,7 @@ $routes->group('abonnement', function($routes) {
     $routes->get('/', 'AbonnementController::index');
     $routes->post('store', 'AbonnementController::store');
 });
+$routes->group('activite', function($routes) {
+    $routes->get('suggestions', 'ActiviteController::suggestions');
+    $routes->post('choisir/(:num)', 'ActiviteController::choisir/$1');
+});

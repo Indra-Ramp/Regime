@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 use App\Models\RegimeModel;
+use App\Models\RegimeUserModel;
+
 use App\Models\SuiviSanteModel;
 use App\Models\ObjectifUserModel;
 use App\Models\ObjectifModel;
@@ -131,21 +133,24 @@ class RegimeController extends BaseController {
         return view('regime/suggestions', $this->data + $data);
     }
 
-    public function choisir($id)
-    {
-        $user   = session()->get('user');
-        $userId = (int)($user['id'] ?? 0);
+public function choisir($id)
+{
+    $user   = session()->get('user');
+    $userId = (int)($user['id'] ?? 0);
 
-        $data = [
-            'id_user'      => $userId,
-            'id_regime'    => $id,
-            'date_regime'  => date('Y-m-d H:i:s'),
-        ];
+    $regimeUserModel = new RegimeUserModel();
 
-        $this->db = \Config\Database::connect();
-        $this->db->table('regime_user')->insert($data);
+    $data = [
+        'id_user'     => $userId,
+        'id_regime'   => $id,
+        'date_regime' => date('Y-m-d H:i:s'),
+    ];
 
-        return $this->response->setJSON(['success' => true]);
+    if (!$regimeUserModel->insert($data)) {
+        return $this->response->setJSON(['success' => false]);
     }
+
+    return $this->response->setJSON(['success' => true]);
+}
 
     }

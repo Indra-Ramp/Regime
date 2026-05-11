@@ -44,7 +44,14 @@ CREATE TABLE activite_sportive(
     variation_poids FLOAT,
     frequence FLOAT
 );
-
+CREATE TABLE activite_user(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_user INT,
+    id_activite INT,
+    date_activite TIMESTAMP,
+    FOREIGN KEY (id_user) REFERENCES user(id),
+    FOREIGN KEY (id_activite) REFERENCES activite_sportive(id)
+);
 CREATE TABLE regime(
     id INT PRIMARY KEY AUTO_INCREMENT,
     perc_viande FLOAT,

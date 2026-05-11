@@ -99,5 +99,6 @@
 <?php endif; ?>
   </main>
 <a href="<?= base_url('regime/suggestions') ?>" class="btn-main">Voir mes régimes suggérés</a>
+<a href="<?= base_url('activite/suggestions') ?>" class="btn-main">Voir mes activités suggérées</a>
 </body>
 </html>
