@@ -21,11 +21,8 @@
 
     <nav class="nav">
       <a href="#" class="nav-link active">Home</a>
-     <?php if (!session()->get('id_user')) { ?>
-    <a href="<?= base_url('profil/') ?>" class="nav-link">Profile</a>
-<?php } else { ?>
-    <a href="<?= base_url('profil/profil') ?>" class="nav-link">Profile</a>
-<?php } ?>
+    <a href="<?= base_url('profil/show') ?>" class="nav-link">Profile</a>
+
     </nav>
 
     <div class="user-zone">
@@ -94,7 +91,13 @@
             <a href="<?= base_url('/register/1') ?>" class="btn-main">Créer mon profil gratuit</a>
         </div>
     <?php endif; ?>
+    <?php if (session()->has('user')): ?>
+    <div class="floating-cta">
+        <p>Passez à la vitesse supérieure !</p>
+        <a href="<?= base_url('abonnement') ?>" class="btn-main">S'abonner</a>
+    </div>
+<?php endif; ?>
   </main>
-
+<a href="<?= base_url('regime/suggestions') ?>" class="btn-main">Voir mes régimes suggérés</a>
 </body>
 </html>

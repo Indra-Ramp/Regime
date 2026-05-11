@@ -32,6 +32,183 @@ h2 {
     letter-spacing: -0.2px;
 }
 
+  /* HEADER MODERNISÉ */
+  .header {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px); /* Effet de verre moderne */
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -1px;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo span { 
+    color: var(--accent); 
+    font-style: italic;
+    margin-left: 2px;
+  }
+
+  /* NAVIGATION */
+  .nav {
+    display: flex;
+    background: var(--primary-light);
+    padding: 6px;
+    border-radius: 100px; /* Style "Pill" */
+    gap: 4px;
+  }
+
+  .nav-link {
+    text-decoration: none;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 100px;
+  }
+
+  .nav-link:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .nav-link.active {
+    background: var(--surface);
+    color: var(--primary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  /* ZONE UTILISATEUR & WALLET */
+  .user-zone {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .wallet {
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 4px 4px 4px 16px;
+  }
+
+  .wallet-balance {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-right: 12px;
+  }
+
+  .wallet-add {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  .wallet-add:hover {
+    background: var(--accent);
+    transform: rotate(90deg); /* Petit effet sympa au hover */
+  }
+
+  .username {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: var(--radius);
+  }
+
+  .username:hover {
+    background: var(--primary-light);
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px; /* Carré arrondi moderne au lieu du rond parfait */
+    background: linear-gradient(135deg, var(--primary), #4a7c6d);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(45, 90, 76, 0.2);
+  }
+
+  .username span {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+  .dropdown-content {
+    position: absolute;
+    top: 120%; /* Juste en dessous du header */
+    right: 0;
+    width: 180px;
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    padding: 8px;
+    display: none; /* Caché par défaut */
+    z-index: 1001;
+    animation: slideIn 0.2s ease-out;
+}
+
+/* Affichage au survol */
+.user-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Items du menu */
+.dropdown-item {
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+/* Séparateur */
+.dropdown-divider {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 8px 0;
+}
 .card {
     background: var(--surface);
     border: 1px solid var(--border);
