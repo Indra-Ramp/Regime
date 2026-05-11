@@ -31,7 +31,7 @@ class RegimeController extends BaseController {
     public function deleteRegime($id = null){
         $regime = new RegimeModel();
         $regime->delete($id);
-        return redirect()->back()->with('success', 'Régime supprimé avec succès');
+        return redirect()->to('/admin/regimes')->with('success', 'Régime supprimé avec succès');
     }
 
     public function updateRegime(){
@@ -76,12 +76,12 @@ class RegimeController extends BaseController {
 //     return redirect()->to('/regime');
 // }
 
-public function deleteRegime($id)
-{
-    $regimeModel = new RegimeModel();
+// public function deleteRegime($id)
+// {
+//     $regimeModel = new RegimeModel();
 
-    $regimeModel->delete($id);
+//     $regimeModel->delete($id);
 
-    return redirect()->to('/regime');
-}
+//     return redirect()->to('/regime');
+// }
     }
