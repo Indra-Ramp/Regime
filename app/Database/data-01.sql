@@ -157,8 +157,8 @@ INSERT INTO code_user(
     statut,
     date_track
 ) VALUES
-(1, 'CODE001', 'utilise', NOW()),
-(2, 'CODE005', 'en_attente', NOW()),
-(3, 'CODE010', 'utilise', NOW()),
-(4, 'CODE003', 'expire', NOW()),
-(5, 'CODE015', 'utilise', NOW());
+(1, 'CODE001', 'valide', NOW()),
+(2, 'CODE005', 'en attente', NOW()),
+(3, 'CODE010', 'en attente', NOW()),
+(4, 'CODE003', 'valide', NOW()),
+(5, 'CODE015', 'refuse', NOW());
