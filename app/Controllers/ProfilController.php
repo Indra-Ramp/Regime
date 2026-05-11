@@ -1,8 +1,12 @@
 <?php
 namespace App\Controllers;
+
+use App\Models\ActiviteUserModel;
 use App\Models\ProfilModel;
 use App\Models\ObjectifUserModel;
 use App\Models\ObjectifModel;
+use App\Models\RegimeUserModel;
+
 class ProfilController extends BaseController{
       public function index()
 {
@@ -76,7 +80,7 @@ public function profile()
 
     $profilModel       = new ProfilModel();
     $objectifUserModel = new ObjectifUserModel();
-
+    
     $profil = $profilModel->getProfil($userId);
 
     $data = [
@@ -84,6 +88,8 @@ public function profile()
         'profil'    => $profil,
         'objectifs' => $objectifUserModel->getObjectifs($userId),
         'wallet'    => $profil['montant'] ?? 0,
+        'activites' => $profilModel->getUserActivites($userId),
+        'regimes' => $profilModel->getUserRegimes($userId)
     ];
 
     return view('profil/profil', $data);

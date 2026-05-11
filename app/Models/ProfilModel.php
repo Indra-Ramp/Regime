@@ -53,5 +53,35 @@ public function getProfil($user_id)
 
     return $profil;
 }
+    public function getUserActivites($id_user)
+    {
+        
+$activite = $this->db->table('activite_user au')
+            ->select('a.label AS nom_activite, au.date_activite')
+        ->join('activite_sportive a', 'a.id = au.id_activite')
+        ->where('au.id_user', $id_user)
+        ->orderBy('au.date_activite', 'DESC')
+        ->get()
+        ->getResultArray();
+            return $activite;
+    }
+
+public function getUserRegimes($id_user)
+{
+    return $this->db->table('regime_user ru')
+        ->select('
+            r.price,
+            r.duree,
+            r.perc_viande,
+            r.perc_poisson,
+            r.perc_volaille,
+            ru.date_regime
+        ')
+        ->join('regime r', 'r.id = ru.id_regime')
+        ->where('ru.id_user', $id_user)
+        ->orderBy('ru.date_regime', 'DESC')
+        ->get()
+        ->getResultArray();
+}
       }
     

@@ -103,7 +103,42 @@
 </table>
 
 <hr>
+<h2>Activités</h2>
+<table border="1">
+    <tr>
+        <th>Activité</th>
+        <th>Date</th>
+    </tr>
+    <?php foreach($activites as $a): ?>
+        <tr>
+            <td><?= $a['nom_activite'] ?></td>
+            <td><?= $a['date_activite'] ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
 
+<h2>Régimes</h2>
+<table border="1">
+    <tr>
+        <th>Prix</th>
+        <th>Durée</th>
+        <th>% Viande</th>
+        <th>% Poisson</th>
+        <th>% Volaille</th>
+        <th>Date</th>
+    </tr>
+
+    <?php foreach($regimes as $r): ?>
+        <tr>
+            <td><?= $r['price'] ?> €</td>
+            <td><?= $r['duree'] ?> jours</td>
+            <td><?= $r['perc_viande'] ?> %</td>
+            <td><?= $r['perc_poisson'] ?> %</td>
+            <td><?= $r['perc_volaille'] ?> %</td>
+            <td><?= $r['date_regime'] ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
 <h2>Porte-monnaie</h2>
 <table border="1">
     <tr>
