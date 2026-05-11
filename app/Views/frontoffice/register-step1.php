@@ -69,6 +69,9 @@ $inputs = [
 
                             <input type="radio" name="genre" id="femme" value="F" <?= $inputs['genre'] === 'F' ? 'checked' : '' ?>>
                             <label for="femme" class="gender-btn">Femme</label>
+
+                            <input type="radio" name="genre" id="other" value="O" <?= $inputs['genre'] === 'O' ? 'checked' : '' ?>>
+                            <label for="other" class="gender-btn">Autre</label>
                         </div>
                     </div>
                 </fieldset>
@@ -120,6 +123,8 @@ $inputs = [
         showPass.addEventListener('change', (event) => {
             passField.setAttribute('type', event.target.checked ? 'text' : 'password');
         });
+        const focused = document.querySelector("#nom");
+        focused.focus();
     </script>
 
 </body>
