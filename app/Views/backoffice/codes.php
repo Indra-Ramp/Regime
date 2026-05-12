@@ -52,8 +52,10 @@
                                         <button class="btn-delete" onclick="deleteCode(<?= $code['id'] ?>)">Supprimer</button>
                                     </td>
                                     <td>
-                                        <button class="btn-edit" onclick="validateCode(<?= $code['id'] ?>)">Valider</button>
-                                        <button class="btn-delete" onclick="refuseCode(<?= $code['id'] ?>)">Refuser</button>
+                                        <?php if($code['statut'] === 'en attente'): ?>
+                                            <button class="btn-edit" onclick="validateCode(<?= $code['id'] ?>)">Valider</button>
+                                            <button class="btn-delete" onclick="refuseCode(<?= $code['id'] ?>)">Refuser</button>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -68,7 +70,7 @@
                 <p class="form-subtitle" id="code-form-subtitle">Remplissez les champs pour ajouter un nouveau code.</p>
 
                 <form id="code-form-ajax">
-                    <input type="hidden" id="code_id" name="code_id" value="<?= $code['id'] ?>">
+                    <input type="hidden" id="code_id" name="code_id" value="">
 
                     <div class="form-group">
                         <label for="code">Code</label>

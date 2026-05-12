@@ -9,9 +9,9 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->group('admin', function($routes) {
-    $routes->get('/', 'AdminController::loginForm');
-    $routes->post('login', 'AdminController::login');
+$routes->get('/admin', 'AdminController::loginForm');
+$routes->post('/admin/login', 'AdminController::login');
+$routes->group('admin', ['filter' => 'role:1' ] ,function($routes) {
     $routes->post('dashboard', 'AdminController::index');
     $routes->get('create-form', 'ActiviteController::CreationForm');
     $routes->post('create-activity', 'ActiviteController::createActivity');
@@ -29,7 +29,7 @@ $routes->group('admin', function($routes) {
     $routes->post('regimes/delete/(:num)', 'RegimeController::deleteRegime/$1');
 
     $routes->get('codes', 'AdminController::getInvalidCodes');
-    $routes->get('codes/validate/(:num)', 'AdminController::ValidCode/$1');
+    $routes->post('codes/validate/(:num)', 'AdminController::ValidCode/$1');
     $routes->post('codes/refuse/(:num)', 'AdminController::RefusedCode/$1');
     $routes->get('codes/create-form', 'AdminController::createCodeForm');
     $routes->post('codes/create', 'AdminController::createCode');

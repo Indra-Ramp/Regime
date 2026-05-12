@@ -30,8 +30,9 @@ use App\Models\ObjectifModel;
                 'variation_poids' => $this->request->getPost('variation_poids'),
                 'frequence' => $this->request->getPost('frequence')
             ]);
+            $newActivity = $activite->where('label', $this->request->getPost('label'))->orderBy('id', 'DESC')->first();
             // return redirect()->to('/admin/activities')->with('success', 'Activité créée avec succès');
-            echo json_encode(['success' => 'Activité créée avec succès']);
+            echo json_encode(['success' => 'Activité créée avec succès', 'activity' => $newActivity]);
         }
 
         public function deleteActivity($id = null){
@@ -53,7 +54,8 @@ use App\Models\ObjectifModel;
                 'frequence' => $this->request->getPost('frequence')
             ]);
             session()->remove('activity');
-            echo json_encode(['success' => 'Activité mise à jour avec succès']);
+            $updatedActivity = $activite->find($activity['id']);
+            echo json_encode(['success' => 'Activité mise à jour avec succès', 'activity' => $updatedActivity]);
         }
 
         public function UpdateForm($id = null){

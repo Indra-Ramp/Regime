@@ -15,7 +15,15 @@ class RegimeController extends BaseController {
 
     public function index(){
         $regime = new RegimeModel();
+        $regimeUser = new RegimeUserModel();
         $regimes = $regime->findAll();
+        
+        // Ajouter un flag pour chaque régime indiquant s'il est utilisé
+        foreach($regimes as &$r) {
+            $usersCount = $regimeUser->where('id_regime', $r['id'])->countAllResults();
+            $r['is_used'] = $usersCount > 0;
+        }
+        
         return view('backoffice/regimes', ['regimes' => $regimes]);
     }
 
@@ -37,7 +45,8 @@ class RegimeController extends BaseController {
                 'duree' => $this->request->getPost('duree'),
                 'price' => $this->request->getPost('price')
             ]);
-            echo json_encode(['success'=> 'Régime créé avec succès']);
+            $newRegime = $regime->orderBy('id', 'DESC')->first();
+            echo json_encode(['success'=> 'Régime créé avec succès', 'regime' => $newRegime]);
         } else{
             echo json_encode(['error' => 'Disproportion du regime']);
         }
@@ -46,6 +55,11 @@ class RegimeController extends BaseController {
 
     public function deleteRegime($id = null){
         $regime = new RegimeModel();
+        $regimeUser = new RegimeUserModel();
+        
+        // Supprimer d'abord les associations utilisateur / régime si elles existent
+        $regimeUser->where('id_regime', $id)->delete();
+        
         $regime->delete($id);
         echo json_encode(['success'=> 'Régime supprimé avec succès']);
     }
@@ -70,7 +84,8 @@ class RegimeController extends BaseController {
                 'price' => $this->request->getPost('price')
             ]);
             session()->remove('regime');
-            echo json_encode(['success'=> 'Régime mis à jour avec succès']);
+            $updatedRegime = $regime->find($regimeData['id']);
+            echo json_encode(['success'=> 'Régime mis à jour avec succès', 'regime' => $updatedRegime]);
         } else {
             echo json_encode(['error' => 'Disproportion du regime']);
         }

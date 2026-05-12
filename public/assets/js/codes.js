@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             row.querySelector('.cell-date').innerText = data.code.date_track;
                             
                             // Met à jour le bouton d'édition de la ligne
-                            const btnEdit = row.querySelector('.btn-edit-code');
+                            const btnEdit = row.querySelector('.btn-edit');
                             btnEdit.setAttribute('onclick', `setupEditModeCode(${id}, '${data.code.code}', ${data.code.id_user}, '${data.code.statut}', '${data.code.date_track}')`);
                         }
                         resetToCreateModeCode(); // On repasse en mode création après enregistrement
@@ -117,8 +117,12 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <td class="cell-statut">${data.code.statut}</td>
                                 <td class="cell-date">${data.code.date_track}</td>
                                 <td>
-                                    <button class="btn-edit-code" onclick="setupEditModeCode(${data.code.id}, '${data.code.code}', ${data.code.id_user}, '${data.code.statut}', '${data.code.date_track}')">Modifier</button>
-                                    <button class="btn-delete-code" onclick="deleteCode(${data.code.id})">Supprimer</button>
+                                    <button class="btn-edit" onclick="setupEditModeCode(${data.code.id}, '${data.code.code}', ${data.code.id_user}, '${data.code.statut}', '${data.code.date_track}')">Modifier</button>
+                                    <button class="btn-delete" onclick="deleteCode(${data.code.id})">Supprimer</button>
+                                </td>
+                                <td>
+                                    ${data.code.statut === 'en attente' ? `<button class="btn-edit" onclick="validateCode(${data.code.id})">Valider</button>
+                                    <button class="btn-delete" onclick="refuseCode(${data.code.id})">Refuser</button>` : ''}
                                 </td>
                             </tr>
                         `;

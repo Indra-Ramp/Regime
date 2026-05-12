@@ -92,16 +92,16 @@
             
             if(!$monnaieData){
                 echo json_encode(['error' => 'Porte-monnaie de l\'utilisateur non trouvé']);
+                return;
             } 
             $newCode = $codeModel->getCode($code['code']);
             if(!$newCode){
                 echo json_encode(['error' => 'Code non trouvé']);
+                return;
             }
             $monnaieData['montant'] += $newCode['montant'];
             $m = $monnaie->update($monnaieData['id'], ['montant' => $monnaieData['montant']]);
             $c = $codeModel->update($code['id'], ['statut' => 'valide']);
-
-            var_dump($code);
             
             echo json_encode(['success'=> 'Code validé et montant ajouté au porte-monnaie']);
         }
@@ -129,6 +129,7 @@
             $rules = $codeModel->ValidationRules();
             if(!$this->validate($rules)) {
                 echo json_encode(['errors' => $this->validator->getErrors()]);
+                return;
             }
             $codeModel->save([
                 'code' => $this->request->getPost('code'),
@@ -136,7 +137,8 @@
                 'statut' => $this->request->getPost('statut'),
                 'date_track' => $this->request->getPost('date_track')
             ]);
-            echo json_encode(['success' => 'Code créé avec succès']);
+            $newCode = $codeModel->orderBy('id', 'DESC')->first();
+            echo json_encode(['success' => 'Code créé avec succès', 'code' => $newCode]);
         }
 
         public function updateCodeForm($id = null) {
@@ -154,6 +156,7 @@
             $rules = $codeModel->ValidationRules();
             if(!$this->validate($rules)) {
                 echo json_encode(['errors' => $this->validator->getErrors()]);
+                return;
             }
             $codeModel->update($codeData['id'], [
                 'code' => $this->request->getPost('code'),
@@ -162,7 +165,8 @@
                 'date_track' => $this->request->getPost('date_track')
             ]);
             session()->remove('code');
-            echo json_encode(['success' => 'Code mis à jour avec succès']);
+            $updatedCode = $codeModel->find($codeData['id']);
+            echo json_encode(['success' => 'Code mis à jour avec succès', 'code' => $updatedCode]);
         }
 
         public function deleteCode($id = null) {

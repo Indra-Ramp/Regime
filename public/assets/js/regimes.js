@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const isEditMode = id !== ""; // Si un ID existe, on modifie, sinon on crée
             
             // URL cible dynamique selon l'état
-            const url = isEditMode ? '/admin/regimes/updated-regime' : '/admin/regimes/create-regime';
+            const url = isEditMode ? '/admin/regimes/updated-regime' : '/admin/create-regime';
             const formData = new FormData(this);
 
             fetch(url, {
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             row.querySelector('.cell-price').innerText = `${data.regime.price} €`;
                             
                             // Met à jour le bouton d'édition de la ligne
-                            const btnEdit = row.querySelector('.btn-edit-regime');
+                            const btnEdit = row.querySelector('.btn-edit');
                             btnEdit.setAttribute('onclick', `setupEditModeRegime(${id}, ${data.regime.perc_viande}, ${data.regime.perc_poisson}, ${data.regime.perc_volaille}, ${data.regime.variation_poids}, ${data.regime.duree}, ${data.regime.price})`);
                         }
                         resetToCreateModeRegime(); // On repasse en mode création après enregistrement
@@ -100,14 +100,16 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <td class="cell-duree">${data.regime.duree}</td>
                                 <td class="cell-price">${data.regime.price} €</td>
                                 <td>
-                                    <button class="btn-edit-regime" onclick="setupEditModeRegime(${data.regime.id}, ${data.regime.perc_viande}, ${data.regime.perc_poisson}, ${data.regime.perc_volaille}, ${data.regime.variation_poids}, ${data.regime.duree}, ${data.regime.price})">Modifier</button>
-                                    <button class="btn-delete-regime" onclick="deleteRegime(${data.regime.id})">Supprimer</button>
+                                    <button class="btn-edit" onclick="setupEditModeRegime(${data.regime.id}, ${data.regime.perc_viande}, ${data.regime.perc_poisson}, ${data.regime.perc_volaille}, ${data.regime.variation_poids}, ${data.regime.duree}, ${data.regime.price})">Modifier</button>
+                                    <button class="btn-delete" onclick="deleteRegime(${data.regime.id})">Supprimer</button>
                                 </td>
                             </tr>
                         `;
                         tbody.insertAdjacentHTML('beforeend', newRow);
                         resetToCreateModeRegime(); // Vide le formulaire
                     }
+                } else if(data.error) {
+                    showToastRegime(data.error, "error");
                 } else {
                     showToastRegime(data.message || "Une erreur est survenue", "error");
                 }
@@ -140,6 +142,8 @@ function deleteRegime(id) {
             if (currentEditId == id) {
                 resetToCreateModeRegime();
             }
+        } else if(data.error) {
+            showToastRegime(data.error, "error");
         } else {
             showToastRegime(data.message || "Impossible de supprimer le régime", "error");
         }
