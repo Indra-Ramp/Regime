@@ -23,7 +23,7 @@ class RegimeController extends BaseController {
         $regime = new RegimeModel();
         $rules = $regime->getValidationRules();
         if(!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            echo json_encode(['errors' => $this->validator->getErrors()]);
         }
         $perc_viande = $this->request->getPost('perc_viande');
         $perc_poisson =  $this->request->getPost('perc_poisson');
@@ -37,9 +37,9 @@ class RegimeController extends BaseController {
                 'duree' => $this->request->getPost('duree'),
                 'price' => $this->request->getPost('price')
             ]);
-            return redirect()->to('/admin/regimes')->with('success', 'Régime créé avec succès');
+            echo json_encode(['success'=> 'Régime créé avec succès']);
         } else{
-            return redirect()->to('/admin/regimes')->with('error', 'Disproportion du regime');
+            echo json_encode(['error' => 'Disproportion du regime']);
         }
         
     }
@@ -47,15 +47,15 @@ class RegimeController extends BaseController {
     public function deleteRegime($id = null){
         $regime = new RegimeModel();
         $regime->delete($id);
-        return redirect()->to('/admin/regimes')->with('success', 'Régime supprimé avec succès');
+        echo json_encode(['success'=> 'Régime supprimé avec succès']);
     }
 
     public function updateRegime(){
         $regime = new RegimeModel();
-        $regimeData = $regime->find($this->request->getPost('id'));
+        $regimeData = $regime->find($this->request->getPost('regime_id'));
         $rules = $regime->getValidationRules();
         if(!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+            echo json_encode(['errors' => $this->validator->getErrors()]);
         }
         $perc_viande = $this->request->getPost('perc_viande');
         $perc_poisson =  $this->request->getPost('perc_poisson');
@@ -70,9 +70,9 @@ class RegimeController extends BaseController {
                 'price' => $this->request->getPost('price')
             ]);
             session()->remove('regime');
-            return redirect()->to('/admin/regimes')->with('success', 'Régime mis à jour avec succès');
+            echo json_encode(['success'=> 'Régime mis à jour avec succès']);
         } else {
-            return redirect()->back()->with('error', 'Disproportion du regime');
+            echo json_encode(['error' => 'Disproportion du regime']);
         }
     }
 

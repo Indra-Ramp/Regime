@@ -75,8 +75,10 @@
 
         public function getInvalidCodes() {
             $codeModel = new CodeModel();
-            $codes = $codeModel->findAll(); // Changed to findAll to show all codes
-            return view('backoffice/codes', ['codes' => $codes]);
+            $codes = $codeModel->findAll();
+            $userModel = new UserModel();
+            $users = $userModel->findAll(); // Changed to findAll to show all codes
+            return view('backoffice/codes', ['codes' => $codes, 'users' => $users]);
         }
 
         public function ValidCode($id = null) {
@@ -101,7 +103,7 @@
 
             var_dump($code);
             
-            return redirect()->to('/admin/codes')->with('success', 'Code validé et montant ajouté au porte-monnaie');
+            echo json_encode(['success'=> 'Code validé et montant ajouté au porte-monnaie']);
         }
 
         public function RefusedCode($id = null) {
@@ -113,7 +115,7 @@
             }
             $codeModel->update($code['id'], ['statut' => 'refuse']);
 
-            return redirect()->to('/admin/codes')->with('success', 'Code refusé');
+            echo json_encode(['success' => 'Code refusé']);
         }
 
         public function createCodeForm() {
@@ -134,7 +136,7 @@
                 'statut' => $this->request->getPost('statut'),
                 'date_track' => $this->request->getPost('date_track')
             ]);
-            return redirect()->to('/admin/codes')->with('success', 'Code créé avec succès');
+            echo json_encode(['success' => 'Code créé avec succès']);
         }
 
         public function updateCodeForm($id = null) {
@@ -148,7 +150,7 @@
 
         public function updateCode() {
             $codeModel = new CodeModel();
-            $codeData = $codeModel->find($this->request->getPost('id'));
+            $codeData = $codeModel->find($this->request->getPost('code_id'));
             $rules = $codeModel->ValidationRules();
             if(!$this->validate($rules)) {
                 echo json_encode(['errors' => $this->validator->getErrors()]);
@@ -160,13 +162,13 @@
                 'date_track' => $this->request->getPost('date_track')
             ]);
             session()->remove('code');
-            return redirect()->to('/admin/codes')->with('success', 'Code mis à jour avec succès');
+            echo json_encode(['success' => 'Code mis à jour avec succès']);
         }
 
         public function deleteCode($id = null) {
             $codeModel = new CodeModel();
             $codeModel->delete($id);
-            return redirect()->to('/admin/codes')->with('success', 'Code supprimé avec succès');
+            echo json_encode(['success' => 'Code supprimé avec succès']);
         }
 
     }

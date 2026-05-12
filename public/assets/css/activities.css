@@ -1,72 +1,112 @@
-/* Palette de couleurs VitalVibe */
+/* ==========================================================================
+   1. VARIABLES DE THÈME & RESET (Palette VitalVibe)
+   ========================================================================== */
 :root {
-        /* Palette VitalVibe "Santé & Bien-être" */
-        --bg: #f8faf9;
-        --surface: #ffffff;
-        --primary: #2d5a4c;         /* Vert profond */
-        --primary-light: #e9f2ef;   /* Hover & fonds légers */
-        --accent: rgb(242, 139, 109);          /* Corail doux */
-        --text-main: #1a2e28;
-        --text-muted: #6b857d;
-        --border: #e2ede9;
-        --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.03);
-        --shadow-card: 0 10px 30px rgba(45, 90, 76, 0.05);
-        --radius: 12px;
-        --radius-lg: 24px;
-    }
+    --bg: #f8faf9;
+    --surface: #ffffff;
+    --primary: #2d5a4c;         /* Vert profond */
+    --primary-light: #e9f2ef;   /* Hover & fonds légers */
+    --accent: rgb(242, 139, 109); /* Corail doux */
+    --text-main: #1a2e28;
+    --text-muted: #6b857d;
+    --border: #e2ede9;
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.03);
+    --shadow-card: 0 10px 30px rgba(45, 90, 76, 0.05);
+    --radius: 12px;
+    --radius-sm: 6px;
+    --radius-lg: 24px;
+}
 
-    * { 
-        box-sizing: border-box; 
-        margin: 0; 
-        padding: 0; 
-        transition: all 0.25s ease;
-    }
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    transition: all 0.25s ease;
+}
 
-    body {
-        font-family: 'Inter', -apple-system, sans-serif;
-        background: var(--bg);
-        color: var(--text-main);
-        -webkit-font-smoothing: antialiased;
-        padding: 40px 20px;
-    }
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+    padding: 40px 20px;
+}
 
-    .container {
-        max-width: 1100px;
-        margin: 0 auto;
-    }
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
 
-    /* HEADER DU DASHBOARD */
-    .db-header {
-        margin-bottom: 40px;
-    }
+/* ==========================================================================
+   2. HEADER & LAYOUT GLOBAL
+   ========================================================================== */
+.db-header {
+    margin-bottom: 40px;
+}
 
-    .db-header h1 {
-        font-size: 28px;
-        font-weight: 800;
-        color: var(--primary);
-        letter-spacing: -0.5px;
-        margin-bottom: 6px;
-    }
+.db-header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+}
 
-    .db-header p {
-        color: var(--text-muted);
-        font-size: 15px;
-        font-weight: 500;
-    }
+.db-header p {
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 500;
+}
 
-    .form-card {
+/* Disposition en 2 colonnes */
+.dashboard-layout {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    align-items: flex-start;
+}
+
+/* Colonne de gauche (Tableau) - Prend 65% de la largeur */
+.table-column {
+    flex: 0 0 65%;
+    min-width: 0; /* Évite les débordements */
+}
+
+/* Colonne de droite (Formulaire fixe) - Prend 35% de la largeur */
+.form-column {
+    flex: 0 0 35%;
+    background: var(--surface);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #eef2f5;
+    position: sticky;
+    top: 20px; /* Le formulaire reste visible lors du scroll */
+}
+
+/* En-tête du formulaire dynamique */
+.form-column h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.form-subtitle {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Card alternative pour formulaire complet */
+.form-card {
     background: white;
     border-radius: 16px;
     padding: 24px;
     margin-bottom: 24px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    border: 1px solid var(--divider);
+    border: 1px solid var(--border);
     animation: slideDown 0.3s ease-out;
-}
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 .form-header {
@@ -82,21 +122,78 @@
     gap: 20px;
 }
 
+/* ==========================================================================
+   3. ÉLÉMENTS DE FORMULAIRE & BOUTONS
+   ========================================================================== */
+.form-group {
+    margin-bottom: 15px;
+}
+
 .form-group label {
     display: block;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-light);
-    margin-bottom: 8px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 0.9rem;
 }
 
-.form-group input, .form-group select {
+.form-group input,
+.form-group select,
+.form-group textarea {
     width: 100%;
     padding: 10px;
-    border-radius: 8px;
     border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: inherit;
 }
 
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(45, 90, 76, 0.1);
+}
+
+/* Actions globales des formulaires */
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.form-actions button {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Styles spécifiques des boutons selon les ID */
+#btn-submit, #code-btn-submit, #regime-btn-submit {
+    background: var(--primary);
+    color: white;
+}
+
+#btn-submit:hover, #code-btn-submit:hover, #regime-btn-submit:hover {
+    background: #1f3f35;
+}
+
+#btn-cancel, #code-btn-cancel, #regime-btn-cancel {
+    background: #f0f0f0;
+    color: #666;
+    display: none;
+}
+
+#btn-cancel:hover, #code-btn-cancel:hover, #regime-btn-cancel:hover {
+    background: #e0e0e0;
+}
+
+/* Boutons d'ajouts et sauvegardes */
 .btn-add {
     background: var(--primary);
     color: white;
@@ -107,8 +204,12 @@
     font-weight: 600;
 }
 
+.btn-add:hover {
+    background: #1f3f35;
+}
+
 .btn-save {
-    background: var(--accent); /* Ton violet */
+    background: var(--accent);
     color: white;
     border: none;
     padding: 12px 30px;
@@ -118,85 +219,71 @@
     font-weight: 700;
 }
 
-.text-loss { color: #e63946; font-weight: 600; } /* Rouge pour perte de poids */
-.text-gain { color: #2a9d8f; font-weight: 600; } /* Vert pour prise */
-
-.badge {
-    background: #f0f2f5;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-}
-/* LE CONTENEUR DU TABLEAU (Style "Card") */
+/* ==========================================================================
+   4. TABLEAU DE DONNÉES (Style "Card" moderne)
+   ========================================================================== */
 .table-container {
     max-width: 1000px;
     margin: 0 auto;
-    background: var(--vit-surface);
-    border: 1px solid var(--vit-border);
-    border-radius: var(--vit-radius-lg);
-    box-shadow: var(--vit-shadow-card);
-    overflow: hidden; /* Empêche le tableau de dépasser des coins arrondis */
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    overflow: hidden; /* Empêche le débordement des coins arrondis */
 }
 
-/* EN-TÊTE DE LA CARTE */
 .table-header {
     padding: 35px 40px 25px 40px;
-    border-bottom: 1px solid var(--vit-border);
+    border-bottom: 1px solid var(--border);
 }
 
 .table-header h2 {
     font-size: 24px;
     font-weight: 800;
-    color: var(--vit-primary);
+    color: var(--primary);
     margin-bottom: 8px;
 }
 
 .table-header p {
     font-size: 14px;
-    color: var(--vit-text-muted);
+    color: var(--text-muted);
     font-weight: 500;
 }
 
-/* RESPONSIVE TABLE (Scroll horizontal sur mobile) */
 .responsive-table {
     width: 100%;
     overflow-x: auto;
 }
 
-/* TABLEAU */
 table {
     width: 100%;
-    border-collapse: collapse; /* On fusionne les bordures brutes */
+    border-collapse: collapse;
     text-align: left;
     font-size: 14px;
 }
 
-/* Supprime la bordure brute du HTML "border=1" pour la rendre moderne */
 table[border="1"] {
     border: none;
 }
 
-/* EN-TÊTE DES COLONNES (Th) */
 th {
     background-color: #fafcfb;
-    color: var(--vit-text-muted);
+    color: var(--text-muted);
     font-weight: 700;
     text-transform: uppercase;
     font-size: 11px;
     letter-spacing: 0.8px;
     padding: 18px 40px;
-    border-bottom: 1px solid var(--vit-border);
+    border-bottom: 1px solid var(--border);
 }
 
-/* CELLULES DE DONNÉES (Td) */
 td {
     padding: 20px 40px;
-    border-bottom: 1px solid var(--vit-border);
-    color: var(--vit-text-main);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-main);
     vertical-align: middle;
 }
 
-/* Effet au survol d'une ligne */
 tbody tr {
     transition: background-color 0.2s ease;
 }
@@ -206,52 +293,52 @@ tbody tr:hover {
 }
 
 tbody tr:last-child td {
-    border-bottom: none; /* Supprime la dernière bordure du bas */
+    border-bottom: none;
 }
 
-/* Style spécifique pour la colonne d'ID */
+/* Styles spécifiques aux colonnes du tableau */
 td:first-child {
     font-weight: 700;
-    color: var(--vit-text-muted);
+    color: var(--text-muted);
 }
 
-/* Style pour le nom de l'activité */
 td:nth-child(2) {
     font-weight: 600;
-    color: var(--vit-primary);
+    color: var(--primary);
 }
 
-/* BOUTONS D'ACTIONS (Modifier & Supprimer) */
-
-/* Le lien "Modifier" */
+/* Actions dans les cellules (Modifier / Supprimer) */
 td a {
     display: inline-block;
     text-decoration: none;
     font-size: 13px;
     font-weight: 700;
-    color: var(--vit-primary);
-    background-color: var(--vit-primary-light);
+    color: var(--primary);
+    background-color: var(--primary-light);
     padding: 8px 16px;
-    border-radius: var(--vit-radius-sm);
+    border-radius: var(--radius-sm);
     margin-right: 8px;
     transition: all 0.2s ease;
 }
 
 td a:hover {
-    background-color: var(--vit-primary);
+    background-color: var(--primary);
     color: #ffffff;
 }
 
-/* Le bouton "Supprimer" */
+td form {
+    display: inline-block;
+}
+
 td form button {
     font-family: 'Inter', sans-serif;
     font-size: 13px;
     font-weight: 700;
-    color: #e63946; /* Rouge discret d'alerte */
+    color: #e63946;
     background-color: #fff5f5;
     border: none;
     padding: 8px 16px;
-    border-radius: var(--vit-radius-sm);
+    border-radius: var(--radius-sm);
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -261,7 +348,134 @@ td form button:hover {
     color: #ffffff;
 }
 
-/* RESPONSIVE MOBILE */
+/* ==========================================================================
+   5. NOTIFICATIONS, TOASTS & BADGES
+   ========================================================================== */
+.badge {
+    background: #f0f2f5;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.text-loss { color: #e63946; font-weight: 600; }
+.text-gain { color: #2a9d8f; font-weight: 600; }
+
+/* Alertes Inline (Success / Error) */
+.success, .error {
+    padding: 14px 20px;
+    margin: 20px auto;
+    max-width: 460px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    animation: slideDown 0.3s ease-out;
+}
+
+.success {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    border: 1.5px solid #d2e4df;
+}
+
+.error {
+    background-color: #fff5f5; 
+    color: #e63946;
+    border: 1.5px solid #ffe3e3;
+}
+
+.success::before { content: "✓"; font-weight: 800; font-size: 16px; }
+.error::before { content: "⚠"; font-weight: 800; font-size: 16px; }
+
+/* Toast Notifications (Fixed bottom) */
+#toast, #toast-code, #toast-regime {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    display: none;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideInUp 0.3s ease;
+}
+
+.toast-notification.toast-success { background: #4caf50; }
+.toast-notification.toast-error { background: #f44336; }
+
+/* Style de base commun */
+.btn-edit, .btn-delete {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* --- MODIFIER : Le vert d'origine (#1f3f35) --- */
+.btn-edit {
+    background-color: #1f3f35;
+    color: #ffffff;
+}
+.btn-edit:hover {
+    background-color: #142a23; /* Plus sombre au survol */
+    box-shadow: 0 2px 5px rgba(31, 63, 53, 0.3);
+}
+.btn-edit:active {
+    transform: scale(0.98);
+}
+
+/* --- SUPPRIMER : Version pastel / douce du vert --- */
+.btn-delete {
+    background-color: #e9f0ee; /* Vert très clair/grisé */
+    color: #1f3f35;            /* Texte avec votre vert d'origine */
+    border: 1px solid #c2d4cf;
+}
+.btn-delete:hover {
+    background-color: #d4e2de;
+    color: #142a23;
+}
+.btn-delete:active {
+    transform: scale(0.98);
+}
+/* ==========================================================================
+   6. ANIMATIONS
+   ========================================================================== */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInUp {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* ==========================================================================
+   7. RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+@media (max-width: 992px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+    .table-column, .form-column {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     body {
         padding: 30px 10px;
@@ -271,60 +485,5 @@ td form button:hover {
     }
     th, td {
         padding: 15px 20px;
-    }
-}
-
-/* MESSAGES DE NOTIFICATION (Succès / Erreur) */
-.success, .error {
-    padding: 14px 20px;
-    margin: 20px auto;
-    max-width: 460px; /* Aligné sur la largeur de la carte de création */
-    border-radius: 12px; /* Coins arrondis modernes */
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.5;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-    animation: slideDown 0.3s ease-out; /* Petite animation d'entrée */
-}
-
-/* Style Succès : Vert VitalVibe doux */
-.success {
-    background-color: #e9f2ef; /* Ton --primary-light */
-    color: #2d5a4c;            /* Ton --primary */
-    border: 1.5px solid #d2e4df;
-}
-
-/* Style Erreur : Rouge / Corail doux */
-.error {
-    background-color: #fff5f5; 
-    color: #e63946;            /* Rouge d'alerte */
-    border: 1.5px solid #ffe3e3;
-}
-
-/* Petit indicateur visuel avant le texte (Optionnel mais très pro) */
-.success::before {
-    content: "✓";
-    font-weight: 800;
-    font-size: 16px;
-}
-
-.error::before {
-    content: "⚠";
-    font-weight: 800;
-    font-size: 16px;
-}
-
-/* Animation d'apparition fluide */
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
